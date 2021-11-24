@@ -1,10 +1,17 @@
-//
 //  ViewController.swift
 //  Tracker_CoreData
-//
 //  Created by Nathan Hildum on 11/24/21.
 //  Copyright © 2021 Nathan Hildum. All rights reserved.
-//
+/*
+* Inspired by:
+//  CoreDataManager.swift - DemoArcade
+//  Created by Jonathan Rasmusson (Contractor) on 2020-03-03.
+//  Copyright © 2020 Rasmusson Software Consulting. All rights reserved.
+* AND
+//  CoreDataManager.swift
+//  Created by Manish Rathi on 02/10/14.
+//  Copyright (c) 2014 Manish Rathi. All rights reserved.
+*/
 
 import UIKit
 import CoreData
