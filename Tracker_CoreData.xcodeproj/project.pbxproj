@@ -11,9 +11,12 @@
 		6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422940B274E2BDD0002E523 /* SceneDelegate.swift */; };
 		6422940E274E2BDD0002E523 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422940D274E2BDD0002E523 /* ViewController.swift */; };
 		64229411274E2BDD0002E523 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6422940F274E2BDD0002E523 /* Main.storyboard */; };
-		64229414274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
 		64229416274E2BDD0002E523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64229415274E2BDD0002E523 /* Assets.xcassets */; };
 		64229419274E2BDD0002E523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64229417274E2BDD0002E523 /* LaunchScreen.storyboard */; };
+		64814156274E2D4F00639A0F /* Entry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814152274E2D4F00639A0F /* Entry+CoreDataClass.swift */; };
+		64814157274E2D4F00639A0F /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */; };
+		64814158274E2D4F00639A0F /* Medication+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */; };
+		64814159274E2D4F00639A0F /* Medication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,10 @@
 		64229415274E2BDD0002E523 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64229418274E2BDD0002E523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6422941A274E2BDD0002E523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64814152274E2D4F00639A0F /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataClass.swift"; sourceTree = "<group>"; };
+		64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +65,7 @@
 		64229408274E2BDD0002E523 /* Tracker_CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				64814149274E2D1200639A0F /* CoreData */,
 				64229409274E2BDD0002E523 /* AppDelegate.swift */,
 				6422940B274E2BDD0002E523 /* SceneDelegate.swift */,
 				6422940D274E2BDD0002E523 /* ViewController.swift */,
@@ -68,6 +76,17 @@
 				64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */,
 			);
 			path = Tracker_CoreData;
+			sourceTree = "<group>";
+		};
+		64814149274E2D1200639A0F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				64814152274E2D4F00639A0F /* Entry+CoreDataClass.swift */,
+				64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */,
+				64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */,
+				64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,10 +160,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64814158274E2D4F00639A0F /* Medication+CoreDataClass.swift in Sources */,
+				64814157274E2D4F00639A0F /* Entry+CoreDataProperties.swift in Sources */,
 				6422940E274E2BDD0002E523 /* ViewController.swift in Sources */,
 				6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */,
 				6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */,
-				64229414274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld in Sources */,
+				64814156274E2D4F00639A0F /* Entry+CoreDataClass.swift in Sources */,
+				64814159274E2D4F00639A0F /* Medication+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
