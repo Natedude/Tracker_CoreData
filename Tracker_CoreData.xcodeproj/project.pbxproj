@@ -17,6 +17,7 @@
 		64814157274E2D4F00639A0F /* Entry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */; };
 		64814158274E2D4F00639A0F /* Medication+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */; };
 		64814159274E2D4F00639A0F /* Medication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */; };
+		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +164,7 @@
 				64814158274E2D4F00639A0F /* Medication+CoreDataClass.swift in Sources */,
 				64814157274E2D4F00639A0F /* Entry+CoreDataProperties.swift in Sources */,
 				6422940E274E2BDD0002E523 /* ViewController.swift in Sources */,
+				6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */,
 				6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */,
 				6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */,
 				64814156274E2D4F00639A0F /* Entry+CoreDataClass.swift in Sources */,

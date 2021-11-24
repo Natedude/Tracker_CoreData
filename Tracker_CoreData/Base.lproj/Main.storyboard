@@ -21,6 +21,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Add Entry"/>
+                                <connections>
+                                    <action selector="addEntryButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XWk-Ff-LVO"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Entries:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="u7w-ih-0TP">
                                 <rect key="frame" x="20" y="63" width="374" height="673"/>
@@ -42,6 +45,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mSu-3K-aMN"/>
                     </view>
+                    <connections>
+                        <outlet property="addEntryButton" destination="eXv-w0-vuX" id="JMw-8l-q4a"/>
+                        <outlet property="textView" destination="u7w-ih-0TP" id="G8q-fk-5kD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
