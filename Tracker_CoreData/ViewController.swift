@@ -17,13 +17,14 @@ import UIKit
 import CoreData
 
 class ViewController: UIViewController {
+	let cdm: CoreDataManager = CoreDataManager.shared
 	
 	@IBOutlet weak var textView: UITextView!
 	@IBOutlet weak var addEntryButton: UIButton!
 	let textViewStart = "Entries:\n"
 	
 	@IBAction func addEntryButtonPress(_ sender: Any) {
-		self.save(medName: "test")
+		self.createEntry(medName: "test")
 		print("addEntryButtonPress")
 	}
 	
@@ -49,19 +50,6 @@ class ViewController: UIViewController {
 		self.displayEntries()
 	}
 	
-	// Sync db -> self.entries
-	func fetchEntries(ctx: NSManagedObjectContext) {
-		// - get entries into array
-		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entry")
-		do {
-			self.entries = try ctx.fetch(fetchRequest)
-			print("fetchEntries:")
-			self.printEntries()
-		} catch let error as NSError {
-			print("Could not fetch. \(error), \(error.userInfo)")
-		}
-	}
-	
 	// display from self.entries to textView UI
 	func displayEntries(){
 		var text = ""
@@ -83,29 +71,6 @@ class ViewController: UIViewController {
 			self.textView.text = self.textViewStart + text
 		}
 		
-	}
-	
-	// Create new row in Entry table
-	func save(medName: String) {
-		print("save: called")
-		guard let appDelegate =
-			UIApplication.shared.delegate as? AppDelegate else {
-				return
-		}
-		let ctx = appDelegate.persistentContainer.viewContext
-		
-		let entity = NSEntityDescription.entity(forEntityName: "Entry",in: ctx)!
-		let newEntry = NSManagedObject(entity: entity, insertInto: ctx)
-		newEntry.setValue(medName, forKeyPath: "medName")
-		print("save: newEntry = \(newEntry)")
-		do {
-			try ctx.save()
-			self.entries.append(newEntry)
-			print("save: appended. entries:")
-			self.printEntries()
-		} catch let error as NSError {
-			print("Could not save. \(error), \(error.userInfo)")
-		}
 	}
 	
 	// log contents of self.entries
