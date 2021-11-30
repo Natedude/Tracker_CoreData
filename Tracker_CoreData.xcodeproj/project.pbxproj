@@ -18,7 +18,6 @@
 		64814158274E2D4F00639A0F /* Medication+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */; };
 		64814159274E2D4F00639A0F /* Medication+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */; };
 		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
-		64BCB30D274EBA3D00F7BE10 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BCB30C274EBA3D00F7BE10 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataClass.swift"; sourceTree = "<group>"; };
 		64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		64BCB30C274EBA3D00F7BE10 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +86,6 @@
 				64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */,
 				64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */,
 				64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */,
-				64BCB30C274EBA3D00F7BE10 /* CoreDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -170,7 +167,6 @@
 				6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */,
 				6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */,
 				6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */,
-				64BCB30D274EBA3D00F7BE10 /* CoreDataManager.swift in Sources */,
 				64814156274E2D4F00639A0F /* Entry+CoreDataClass.swift in Sources */,
 				64814159274E2D4F00639A0F /* Medication+CoreDataProperties.swift in Sources */,
 			);
