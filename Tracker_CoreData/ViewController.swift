@@ -40,7 +40,7 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-		format.dateFormat = "hh:mm"
+		format.dateFormat = "h:mma"
 		
 //		let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
 //		guard let appDelegate =
@@ -59,6 +59,7 @@ class ViewController: UIViewController {
 		
 		// load entries and show
 		self.refreshEntries()
+//		self.deleteAllEntries()
 	}
 	
 	func getCtx() -> NSManagedObjectContext{
@@ -70,6 +71,11 @@ class ViewController: UIViewController {
 		self.entries = ctx.managerFor(Entry.self).array
 		self.displayEntries()
 	}
+	
+	func deleteAllEntries(){
+		_ = self.cdm.mainContext.managerFor(Entry.self).delete()
+	}
+	
 	// Sync db -> self.entries
 	func fetchEntries(ctx: NSManagedObjectContext) {
 		// - get entries into array
