@@ -100,7 +100,8 @@ class ViewController: UIViewController {
 			print("displayEntries: No entries")
 		} else {
 			for e in self.entries {
-//				print(e)
+//				e = e as Entry
+				print(e)
 				let _id = e.value(forKey: "id") as? Int64
 				let _medName = e.value(forKeyPath: "medName") as? String
 				let _time = e.value(forKey: "time") as? Date
