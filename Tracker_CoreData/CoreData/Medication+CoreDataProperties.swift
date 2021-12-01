@@ -2,7 +2,7 @@
 //  Medication+CoreDataProperties.swift
 //  Tracker_CoreData
 //
-//  Created by Nathan Hildum on 11/24/21.
+//  Created by Nathan Hildum on 11/29/21.
 //  Copyright © 2021 Nathan Hildum. All rights reserved.
 //
 //

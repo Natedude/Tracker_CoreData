@@ -15,16 +15,23 @@
 
 import UIKit
 import CoreData
+import CoreDataManager
 
 class ViewController: UIViewController {
 	
+//	var cdm: CoreDataManager
+	private let cdm = CoreDataManager.sharedInstance
+
 	@IBOutlet weak var textView: UITextView!
 	@IBOutlet weak var addEntryButton: UIButton!
 	let textViewStart = "Entries:\n"
+//	var viewDidLoad = false
+	let format = DateFormatter()
 	
 	@IBAction func addEntryButtonPress(_ sender: Any) {
-		self.save(medName: "test")
 		print("addEntryButtonPress")
+		self.insertNewEntry(sender: self)
+		self.refreshEntries()
 	}
 	
 	var entries: [NSManagedObject] = []
@@ -33,35 +40,51 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
+		format.dateFormat = "hh:mm"
 		
 //		let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
-		guard let appDelegate =
-			UIApplication.shared.delegate as? AppDelegate else {
-				return
-		}
-		let ctx: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
+//		guard let appDelegate =
+//			UIApplication.shared.delegate as? AppDelegate else {
+//				return
+//		}
+//		let ctx: NSManagedObjectContext = appDelegate.persistentContainer.viewContext
 		
+//		let cdm = CoreDataManager.sharedInstance
+		
+		// Main context for UIKit
+//		let ctx = cdm.mainContext
+		
+		// Background context for making updates
+//		let bgctx = cdm.backgroundContext
 		
 		// load entries and show
-		self.fetchEntries(ctx: ctx)
-		
-		// display
-		self.displayEntries()
+		self.refreshEntries()
 	}
 	
+	func getCtx() -> NSManagedObjectContext{
+			return CoreDataManager.sharedInstance.mainContext
+	}
+	
+	func refreshEntries(){
+		let ctx = self.cdm.mainContext
+		self.entries = ctx.managerFor(Entry.self).array
+		self.displayEntries()
+	}
 	// Sync db -> self.entries
 	func fetchEntries(ctx: NSManagedObjectContext) {
 		// - get entries into array
-		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entry")
-		do {
-			self.entries = try ctx.fetch(fetchRequest)
-			print("fetchEntries:")
-			self.printEntries()
-		} catch let error as NSError {
-			print("Could not fetch. \(error), \(error.userInfo)")
-		}
+//		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entry")
+//		do {
+//			self.entries = try ctx.fetch(fetchRequest)
+//			print("fetchEntries:")
+//			self.printEntries()
+//		} catch let error as NSError {
+//			print("Could not fetch. \(error), \(error.userInfo)")
+//		}
+		self.entries = ctx.managerFor(Entry.self).array
 	}
 	
+
 	// display from self.entries to textView UI
 	func displayEntries(){
 		var text = ""
@@ -71,42 +94,82 @@ class ViewController: UIViewController {
 			print("displayEntries: No entries")
 		} else {
 			for e in self.entries {
-				let s = e.value(forKeyPath: "medName") as? String
-				guard let medName = s else {
-					print("displayEntries: Error")
+//				print(e)
+				let _id = e.value(forKey: "id") as? Int64
+				let _medName = e.value(forKeyPath: "medName") as? String
+				let _time = e.value(forKey: "time") as? Date
+				
+//				let medName = _medName
+//				let id = _id
+//				let time = _time
+			
+				guard let medName = _medName else {
+					print("displayEntries: ERROR: medName")
 					return
 				}
-				print("displayEntries: medName: \(medName)")
-				text.append(medName + "\n")
-				print("displayEntries: appended. text=\n\(text)")
+				guard let id = _id else {
+					print("displayEntries: ERROR: id")
+					return
+				}
+				var timeStr = "No Date"
+				if _time  != nil {
+					let time = _time!
+					timeStr = format.string(from: time)
+				}
+				
+//				let fTime = format.string(from: time)
+//				print("displayEntries: medName: \(medName)")
+				text.append("id:\(id) - \(timeStr) - \(medName) \n")
+//				print("displayEntries: appended. text=\n\(text)")
 			}
-			self.textView.text = self.textViewStart + text
 		}
-		
+		self.textView.text = self.textViewStart + text
 	}
 	
-	// Create new row in Entry table
-	func save(medName: String) {
-		print("save: called")
-		guard let appDelegate =
-			UIApplication.shared.delegate as? AppDelegate else {
-				return
-		}
-		let ctx = appDelegate.persistentContainer.viewContext
+	@objc func insertNewEntry(sender: AnyObject){
 		
-		let entity = NSEntityDescription.entity(forEntityName: "Entry",in: ctx)!
-		let newEntry = NSManagedObject(entity: entity, insertInto: ctx)
-		newEntry.setValue(medName, forKeyPath: "medName")
-		print("save: newEntry = \(newEntry)")
+		let context = self.cdm.mainContext
+		
+		let entryManager = context.managerFor(Entry.self)
+		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+		
+		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as! Entry
+		newEntry.medName = "test"
+		newEntry.time = Date()
+		print("Created new Date: \(newEntry.time!)")
+		newEntry.id = Int64(lastEntryID + 1)
+		
 		do {
-			try ctx.save()
-			self.entries.append(newEntry)
-			print("save: appended. entries:")
-			self.printEntries()
-		} catch let error as NSError {
-			print("Could not save. \(error), \(error.userInfo)")
+			try context.saveIfChanged()
+			print("insertNewEntry: SUCCESS")
+//			return true
+		} catch {
+			print("insertNewEntry() ERROR: \(error)")
+//			return false
 		}
 	}
+//	// Create new row in Entry table
+//	func save(medName: String) {
+//		print("save: called")
+////		guard let appDelegate =
+////			UIApplication.shared.delegate as? AppDelegate else {
+////				return
+////		}
+//		let ctx = self.cdm.mainContext
+//
+//		let entity = NSEntityDescription.entity(forEntityName: "Entry",in: ctx)!
+//		let newEntry = NSManagedObject(entity: entity, insertInto: ctx)
+//		newEntry.setValue(medName, forKeyPath: "medName")
+//		print("save: newEntry = \(newEntry)")
+//		do {
+//			try ctx.save()
+//			self.entries.append(newEntry)
+//			print("save: appended. entries:")
+//			self.printEntries()
+//		} catch let error as NSError {
+//			print("Could not save. \(error), \(error.userInfo)")
+//		}
+//	}
 	
 	// log contents of self.entries
 	func printEntries(){
