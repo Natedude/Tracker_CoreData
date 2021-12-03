@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 		self.refreshEntries()
 	}
 	
-	var entries: [NSManagedObject] = []
+	var entries: [Entry] = []
 	// person.value(forKeyPath: "name") as? String
 	
 	override func viewDidLoad() {
@@ -81,7 +81,8 @@ class ViewController: UIViewController {
 		// - get entries into array
 //		let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Entry")
 //		do {
-//			self.entries = try ctx.fetch(fetchRequest)
+//			self.entries = try ctx.fetch(fetchRequest) as! [Entry]
+//			// TODO: don't force unwrap
 //			print("fetchEntries:")
 //			self.printEntries()
 //		} catch let error as NSError {
@@ -100,6 +101,7 @@ class ViewController: UIViewController {
 			print("displayEntries: No entries")
 		} else {
 			for e in self.entries {
+				print(e.time)
 //				e = e as Entry
 				print(e)
 				let _id = e.value(forKey: "id") as? Int64
