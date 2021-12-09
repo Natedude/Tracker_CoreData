@@ -13,11 +13,7 @@ import UIKit
 import CoreData
 import CoreDataManager
 
-struct Entry: Codable {
-	var medName: String
-	//		var time: Date
-	//		var med_Rel: Medication
-}
+
 
 class TrackerVC: UIViewController {
 
@@ -58,13 +54,13 @@ class TrackerVC: UIViewController {
 //	}
 	
 	func deleteAllEntries(){
-		_ = self.cdm.mainContext.managerFor(EntryMO.self).delete()
+		_ = self.cdm.mainContext.managerFor(Entry.self).delete()
 	}
 	
 	// Sync db -> self.entries
 	func fetchEntries() {
 		let ctx = self.cdm.mainContext
-		self.entries = ctx.managerFor(EntryMO.self).array
+		self.entries = ctx.managerFor(Entry.self).array
 	}
 	
 
@@ -112,26 +108,26 @@ class TrackerVC: UIViewController {
 	
 	// Create new row in Entry table
 	@objc func insertNewEntry(sender: AnyObject){
-		
-		let context = self.cdm.mainContext
-		
-		let entryMOManager = context.managerFor(EntryMO.self)
-		let lastEntryID = (entryMOManager.max("id") as? Int) ?? 0
-		
-		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "EntryMO", into: context) as! EntryMO
-		newEntry.medName = "test"
-		newEntry.time = Date()
-		print("Created new Date: \(newEntry.time!)")
-		newEntry.id = Int64(lastEntryID + 1)
-		
-		do {
-			try context.saveIfChanged()
-			print("insertNewEntry: SUCCESS")
-//			return true
-		} catch {
-			print("insertNewEntry() ERROR: \(error)")
-//			return false
-		}
+//		
+//		let context = self.cdm.mainContext
+//		
+//		let entryManager = context.managerFor(Entry.self)
+//		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+//		
+//		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as! Entry
+//		newEntry.substance = "test"
+//		newEntry.time = Date()
+//		print("Created new Date: \(newEntry.time!)")
+//		newEntry.id = Int64(lastEntryID + 1)
+//		
+//		do {
+//			try context.saveIfChanged()
+//			print("insertNewEntry: SUCCESS")
+////			return true
+//		} catch {
+//			print("insertNewEntry() ERROR: \(error)")
+////			return false
+//		}
 	}
 	
 	// log contents of self.entries
@@ -140,7 +136,7 @@ class TrackerVC: UIViewController {
 		for i in 0..<self.entries.count {
 			let e = self.entries[i]
 			print("\(i): \(e)")
-			print("---- '\(e.value(forKey: "medName")!)'")
+			print("---- '\(e.value(forKey: "substance")!)'")
 		}
 	}
 
