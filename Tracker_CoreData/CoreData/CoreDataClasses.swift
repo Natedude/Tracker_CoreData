@@ -15,6 +15,11 @@ public class Entry: NSManagedObject {
 
 }
 
+@objc(SubstanceMO)
+public class Substance: NSManagedObject {
+	
+}
+
 //struct Entry: Decodable {
 //	var medName: String
 //	var time: Date
