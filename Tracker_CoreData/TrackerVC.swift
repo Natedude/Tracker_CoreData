@@ -20,6 +20,7 @@ class TrackerVC: UIViewController {
 	
 //	var cdm: CoreDataManager
 	private let cdm = CoreDataManager.sharedInstance
+	private let cds = CoreDataStore()
 
 //	@IBOutlet weak var textView: UITextView!
 //	@IBOutlet weak var addEntryButton: UIButton!
@@ -110,8 +111,24 @@ class TrackerVC: UIViewController {
 	@objc func insertNewEntryNew(sender: AnyObject){
 		/* triggered when nav + button pressed
 		* segue to new vc or modal?
-		* get info for newEntry
+		* get data for newEntry from the view or modal
+		* make Entry and save
 		*/
+		let context = self.cdm.mainContext
+		let entryManager = context.managerFor(Entry.self)
+		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+		
+		let e = Entry()
+		e.time = Date()
+		print("Created new Date: \(e.time!)")
+		e.id = Int64(lastEntryID + 1)
+//		context.insert(e)
+		do {
+			try context.saveIfChanged()
+			print("insertNewEntry: SUCCESS")
+		} catch {
+			print("insertNewEntry() ERROR: \(error)")
+		}
 	}
 	
 	// Create new row in Entry table

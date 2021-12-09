@@ -19,6 +19,7 @@ protocol DataReadWrite {
 }
 
 class CoreDataStore: DataReadWrite {
+	private let cdm = CoreDataManager.sharedInstance
 //	func getSubstancesList() -> [Substance] {
 //		return [Substance()]
 //	}
