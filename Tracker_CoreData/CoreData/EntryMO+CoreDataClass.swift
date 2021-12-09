@@ -1,5 +1,5 @@
 //
-//  Entry+CoreDataClass.swift
+//  EntryMO+CoreDataClass.swift
 //  Tracker_CoreData
 //
 //  Created by Nathan Hildum on 11/24/21.
@@ -10,7 +10,8 @@
 import Foundation
 import CoreData
 
-@objc(Entry)
-public class Entry: NSManagedObject {
-
+@objc(EntryMO)
+public class EntryMO: NSManagedObject {
+	
 }
+

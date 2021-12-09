@@ -1,5 +1,5 @@
 //
-//  Entry+CoreDataProperties.swift
+//  EntryMO+CoreDataProperties.swift
 //  Tracker_CoreData
 //
 //  Created by Nathan Hildum on 11/29/21.
@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension Entry {
+extension EntryMO {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Entry> {
-        return NSFetchRequest<Entry>(entityName: "Entry")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<EntryMO> {
+        return NSFetchRequest<EntryMO>(entityName: "EntryMO")
     }
 
     @NSManaged public var medName: String?

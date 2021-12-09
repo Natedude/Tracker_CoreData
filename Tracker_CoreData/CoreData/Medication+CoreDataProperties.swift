@@ -20,6 +20,6 @@ extension Medication {
     @NSManaged public var medName: String?
     @NSManaged public var mgPerUnit: Int64
     @NSManaged public var unitName: String?
-    @NSManaged public var entry_Rel: Entry?
+    @NSManaged public var entry_Rel: EntryMO?
 
 }

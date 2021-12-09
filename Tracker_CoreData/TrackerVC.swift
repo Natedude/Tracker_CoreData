@@ -13,7 +13,14 @@ import UIKit
 import CoreData
 import CoreDataManager
 
-class ViewController: UIViewController {
+struct Entry: Codable {
+	var medName: String
+	//		var time: Date
+	//		var med_Rel: Medication
+}
+
+class TrackerVC: UIViewController {
+
 	
 //	var cdm: CoreDataManager
 	private let cdm = CoreDataManager.sharedInstance
@@ -51,13 +58,13 @@ class ViewController: UIViewController {
 //	}
 	
 	func deleteAllEntries(){
-		_ = self.cdm.mainContext.managerFor(Entry.self).delete()
+		_ = self.cdm.mainContext.managerFor(EntryMO.self).delete()
 	}
 	
 	// Sync db -> self.entries
 	func fetchEntries() {
 		let ctx = self.cdm.mainContext
-		self.entries = ctx.managerFor(Entry.self).array
+		self.entries = ctx.managerFor(EntryMO.self).array
 	}
 	
 
@@ -108,10 +115,10 @@ class ViewController: UIViewController {
 		
 		let context = self.cdm.mainContext
 		
-		let entryManager = context.managerFor(Entry.self)
-		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+		let entryMOManager = context.managerFor(EntryMO.self)
+		let lastEntryID = (entryMOManager.max("id") as? Int) ?? 0
 		
-		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as! Entry
+		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "EntryMO", into: context) as! EntryMO
 		newEntry.medName = "test"
 		newEntry.time = Date()
 		print("Created new Date: \(newEntry.time!)")

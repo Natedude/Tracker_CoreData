@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Entry" representedClassName="Entry" syncable="YES">
+    <entity name="EntryMO" representedClassName="EntryMO" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="medName" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -10,10 +10,10 @@
         <attribute name="medName" optional="YES" attributeType="String"/>
         <attribute name="mgPerUnit" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="unitName" optional="YES" attributeType="String"/>
-        <relationship name="entry_Rel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="med_Rel" inverseEntity="Entry"/>
+        <relationship name="entry_Rel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EntryMO" inverseName="med_Rel" inverseEntity="EntryMO"/>
     </entity>
     <elements>
-        <element name="Entry" positionX="-63" positionY="-27" width="128" height="123"/>
-        <element name="Medication" positionX="-63" positionY="-9" width="128" height="28"/>
+        <element name="EntryMO" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Medication" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>
