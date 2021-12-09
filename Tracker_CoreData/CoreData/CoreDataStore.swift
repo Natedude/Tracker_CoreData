@@ -11,10 +11,10 @@ import CoreData
 import CoreDataManager
 
 protocol DataReadWrite {
-	func save(entry: Entry)
+	func save(entryEntity: EntryEntity)
 	//	func update(entry: Entry) // how to do this?
 	//	func getAllEntries() -> [Entry]
-	func getEntriesForDay(day: Date) -> [Entry]
+	func getEntriesForDay(day: Date) -> [EntryEntity]
 //	func getSubstancesList() -> [Substance]
 }
 
@@ -24,11 +24,11 @@ class CoreDataStore: DataReadWrite {
 //		return [Substance()]
 //	}
 	
-	func save(entry: Entry) {
+	func save(entryEntity: EntryEntity) {
 		//
 	}
 	
-	func getEntriesForDay(day: Date) -> [Entry] {
-		return [Entry()]
+	func getEntriesForDay(day: Date) -> [EntryEntity] {
+		return [EntryEntity()]
 	}
 }

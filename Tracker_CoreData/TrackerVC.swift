@@ -28,13 +28,23 @@ class TrackerVC: UIViewController {
 //	var viewDidLoad = false
 	let format = DateFormatter()
 	
-//	@IBAction func addEntryButtonPress(_ sender: Any) {
+	@IBAction func addEntryEntity(_ sender: Any) {
+		print("addEntryButtonPress")
+		self.insertNewEntryNew(sender: self)
+	}
+	//	@IBAction func addEntryButtonPress(_ sender: Any) {
+//		print("addEntryButtonPress")
+//		self.insertNewEntryNew(sender: self)
+////		self.refreshEntries()
+//	}
+	//	@IBAction func addEntryButtonPress(_ sender: Any) {
 //		print("addEntryButtonPress")
 //		self.insertNewEntry(sender: self)
 ////		self.refreshEntries()
 //	}
 	
-	var entries: [NSManagedObject] = []
+	// TODO:
+	var entries: [EntryEntity] = []
 	// person.value(forKeyPath: "name") as? String
 	
 	override func viewDidLoad() {
@@ -43,6 +53,7 @@ class TrackerVC: UIViewController {
 		format.dateFormat = "h:mma"
 //		self.refreshEntries()
 //		self.deleteAllEntries()
+		self.fetchEntries()
 	}
 	
 	func getCtx() -> NSManagedObjectContext{
@@ -55,57 +66,17 @@ class TrackerVC: UIViewController {
 //	}
 	
 	func deleteAllEntries(){
-		_ = self.cdm.mainContext.managerFor(Entry.self).delete()
+		_ = self.cdm.mainContext.managerFor(EntryEntity.self).delete()
 	}
 	
 	// Sync db -> self.entries
 	func fetchEntries() {
 		let ctx = self.cdm.mainContext
-		self.entries = ctx.managerFor(Entry.self).array
+		self.entries = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
+		print(
+			"fetchEntries: typeof entries = \(type(of: self.entries))"
+		)
 	}
-	
-
-	// display from self.entries to textView UI
-//	func displayEntries(){
-//		var text = ""
-////		textView.text = text
-//		if self.entries.count == 0 {
-//			text = "No entries"
-//			print("displayEntries: No entries")
-//		} else {
-//			for e in self.entries {
-////				e = e as Entry
-//				print(e)
-//				let _id = e.value(forKey: "id") as? Int64
-//				let _medName = e.value(forKeyPath: "medName") as? String
-//				let _time = e.value(forKey: "time") as? Date
-//
-////				let medName = _medName
-////				let id = _id
-////				let time = _time
-//
-//				guard let medName = _medName else {
-//					print("displayEntries: ERROR: medName")
-//					return
-//				}
-//				guard let id = _id else {
-//					print("displayEntries: ERROR: id")
-//					return
-//				}
-//				var timeStr = "No Date"
-//				if _time  != nil {
-//					let time = _time!
-//					timeStr = format.string(from: time)
-//				}
-//
-////				let fTime = format.string(from: time)
-////				print("displayEntries: medName: \(medName)")
-//				text.append("id:\(id) - \(timeStr) - \(medName) \n")
-////				print("displayEntries: appended. text=\n\(text)")
-//			}
-//		}
-//		self.textView.text = self.textViewStart + text
-//	}
 	
 	// Create new row in Entry table
 	@objc func insertNewEntryNew(sender: AnyObject){
@@ -115,10 +86,11 @@ class TrackerVC: UIViewController {
 		* make Entry and save
 		*/
 		let context = self.cdm.mainContext
-		let entryManager = context.managerFor(Entry.self)
+		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+		// ^ THIS LINE gives error because calls max and that tries to agregate all the entries, but the NSEntityDescription is returning nil
 		
-		let e = Entry()
+		let e = EntryEntity(context: context)
 		e.time = Date()
 		print("Created new Date: \(e.time!)")
 		e.id = Int64(lastEntryID + 1)
@@ -129,30 +101,8 @@ class TrackerVC: UIViewController {
 		} catch {
 			print("insertNewEntry() ERROR: \(error)")
 		}
-	}
-	
-	// Create new row in Entry table
-	@objc func insertNewEntry(sender: AnyObject){
-		
-		let context = self.cdm.mainContext
-		
-		let entryManager = context.managerFor(Entry.self)
-		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
-		
-		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as! Entry
-//		newEntry.substance = Substance()
-		newEntry.time = Date()
-		print("Created new Date: \(newEntry.time!)")
-		newEntry.id = Int64(lastEntryID + 1)
-		
-		do {
-			try context.saveIfChanged()
-			print("insertNewEntry: SUCCESS")
-//			return true
-		} catch {
-			print("insertNewEntry() ERROR: \(error)")
-//			return false
-		}
+		self.fetchEntries()
+		self.printEntries()
 	}
 	
 	// log contents of self.entries
@@ -161,7 +111,7 @@ class TrackerVC: UIViewController {
 		for i in 0..<self.entries.count {
 			let e = self.entries[i]
 			print("\(i): \(e)")
-			print("---- '\(e.value(forKey: "substance")!)'")
+			print("---- '\(e.time)'")
 		}
 	}
 
