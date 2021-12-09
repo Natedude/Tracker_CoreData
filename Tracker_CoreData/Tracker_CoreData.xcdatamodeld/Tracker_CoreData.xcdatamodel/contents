@@ -7,11 +7,10 @@
     </entity>
     <entity name="Substance" representedClassName="Substance" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Entry" inverseName="substance" inverseEntity="Entry"/>
     </entity>
     <elements>
         <element name="Entry" positionX="0" positionY="0" width="128" height="104"/>
-        <element name="Substance" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="Substance" positionX="0" positionY="0" width="128" height="85"/>
     </elements>
 </model>
