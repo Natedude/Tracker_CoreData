@@ -30,7 +30,9 @@ extension CodingUserInfoKey {
 public struct Entry {
 	var time: Date
 	var substance: SubstanceEntity
+	var managedObject: NSManagedObject
 	
+	//turn MO into struct
 	init?(entryEntity: EntryEntity) {
 		guard
 			let time = entryEntity.value(forKey: "time") as? Date,
@@ -38,6 +40,14 @@ public struct Entry {
 			else {
 				return nil
 		}
+		self.time = time
+		self.substance = substance
+		self.managedObject = entryEntity
+	}
+	
+	// create new MO by creating a struct
+	init(time: Date, substance: SubstanceEntity) {
+		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
 		self.time = time
 		self.substance = substance
 	}
@@ -76,17 +86,27 @@ public class EntryEntity: NSManagedObject, Codable {
 
 public struct Substance {
 	var name: String
-	var entries: [EntryEntity]
+	var entries: [Entry]
+	var managedObject: NSManagedObject
 	
+	//turn MO into struct
 	init?(substanceEntity: SubstanceEntity) {
 		guard
-			let name = substanceEntity.value(forKey: "name") as? String,
-			let entries = substanceEntity.value(forKey: "entries") as? NSSet
+			let name = substanceEntity.value(forKey: "name") as? String
+//			let entries = substanceEntity.value(forKey: "entries") as? NSSet
 			else {
 				return nil
 		}
 		self.name = name
-		self.entries = Array(entries) as! [EntryEntity]
+		self.entries = substanceEntity.entriesArray //TODO:
+		self.managedObject = substanceEntity
+	}
+	
+	// create new MO by creating a struct
+	init(name: String){
+		self.name = name
+		self.entries = []
+		self.managedObject = SubstanceEntity(context: CoreDataManager.sharedInstance.mainContext)
 	}
 }
 
