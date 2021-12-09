@@ -107,27 +107,35 @@ class TrackerVC: UIViewController {
 //	}
 	
 	// Create new row in Entry table
+	@objc func insertNewEntryNew(sender: AnyObject){
+		/* triggered when nav + button pressed
+		* segue to new vc or modal?
+		* get info for newEntry
+		*/
+	}
+	
+	// Create new row in Entry table
 	@objc func insertNewEntry(sender: AnyObject){
-//		
-//		let context = self.cdm.mainContext
-//		
-//		let entryManager = context.managerFor(Entry.self)
-//		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
-//		
-//		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as! Entry
-//		newEntry.substance = "test"
-//		newEntry.time = Date()
-//		print("Created new Date: \(newEntry.time!)")
-//		newEntry.id = Int64(lastEntryID + 1)
-//		
-//		do {
-//			try context.saveIfChanged()
-//			print("insertNewEntry: SUCCESS")
-////			return true
-//		} catch {
-//			print("insertNewEntry() ERROR: \(error)")
-////			return false
-//		}
+		
+		let context = self.cdm.mainContext
+		
+		let entryManager = context.managerFor(Entry.self)
+		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+		
+		let newEntry = NSEntityDescription.insertNewObject(forEntityName: "Entry", into: context) as! Entry
+//		newEntry.substance = Substance()
+		newEntry.time = Date()
+		print("Created new Date: \(newEntry.time!)")
+		newEntry.id = Int64(lastEntryID + 1)
+		
+		do {
+			try context.saveIfChanged()
+			print("insertNewEntry: SUCCESS")
+//			return true
+		} catch {
+			print("insertNewEntry() ERROR: \(error)")
+//			return false
+		}
 	}
 	
 	// log contents of self.entries
