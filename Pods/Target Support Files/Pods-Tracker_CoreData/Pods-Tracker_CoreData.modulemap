@@ -1,6 +1,0 @@
-framework module Pods_Tracker_CoreData {
-  umbrella header "Pods-Tracker_CoreData-umbrella.h"
-
-  export *
-  module * { export * }
-}
