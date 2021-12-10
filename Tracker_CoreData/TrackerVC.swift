@@ -21,10 +21,10 @@ class TrackerVC: UIViewController {
 	
 	@IBAction func addEntryEntity(_ sender: Any) {
 		print("TrackerVC/addEntryButtonPress:")
-		self.insertNewEntryNew(sender: self)
+		self.insertNewEntry(sender: self)
 	}
 	
-	var entries: [Entry] = []
+	var entries: [EntryEntity] = []
 	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
@@ -63,10 +63,10 @@ class TrackerVC: UIViewController {
 	// and then what this prints
 	func fetchEntries() {
 		let ctx = self.cdm.mainContext
-		let entryEntities = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
+		self.entries = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
 		print("TrackerVC/fetchEntries:")
 //		EntryEntity.printArr(eeArr: entryEntities)
-		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities) as [Entry]
+//		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities) as [Entry]
 		self.printEntries()
 	}
 	
@@ -80,13 +80,13 @@ class TrackerVC: UIViewController {
 //	}
 	
 	// Create new row in Entry table
-	@objc func insertNewEntryNew(sender: AnyObject){
+	@objc func insertNewEntry(sender: AnyObject){
 		/* triggered when nav + button pressed
 		* segue to new vc or modal?
 		* get data for newEntry from the view or modal
 		* make Entry and save
 		*/
-		print("TrackerVC/insertNewEntryNew:")
+		print("TrackerVC/insertNewEntry:")
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
@@ -105,6 +105,7 @@ class TrackerVC: UIViewController {
 		} catch {
 			print("insertNewEntry() ERROR: \(error)")
 		}
+		print("------------------------------------END insertNewEntry\n")
 		self.fetchEntries()
 //		self.printEntries()
 	}
@@ -112,27 +113,13 @@ class TrackerVC: UIViewController {
 	func printEntries(){
 		print("TrackerVC/printEntries:")
 		_ = self.entries.map({
-			(e: Entry) -> (Entry) in
-			print(EntryEntity.toString(ee: e.managedObject))
+			(e: EntryEntity) -> (EntryEntity) in
+			print(EntryEntity.toString(ee: e))
 			return e
 		})
 		print("------------------------------------END printEntries\n")
 	}
 	
-	// log contents of self.entries
-//	func printEntries(){
-//		print("-------------------------------- printing self.entries: ...")
-////		for i in 0..<self.entries.count {
-////			let e = self.entries[i]
-////			print("\(i): \(e)")
-////			print("---- '\(e.time)'")
-////		}
-//		_ = self.entries.map({
-//			(e: Entry) -> (Entry) in
-//			print(EntryEntity.toString(ee: <#T##EntryEntity#>))
-//		})
-//	}
-
 
 }
 

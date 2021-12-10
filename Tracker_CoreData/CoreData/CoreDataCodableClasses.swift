@@ -118,9 +118,9 @@ public class EntryEntity: NSManagedObject, Codable {
 	}
 	
 	public static func toString(ee: EntryEntity) -> String{
-		print("EntryEntity/toString:")
+//		print("EntryEntity/toString:")
 		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
-		return " -  Entry -id:\(ee.id) -time:\(timeStr)"
+		return " ~  Entry: id=\(ee.id), time=\(timeStr)    ~~~~toString"
 	}
 	
 	// access fields so printing ee does not show <fault> and instead shows values
@@ -134,47 +134,47 @@ public class EntryEntity: NSManagedObject, Codable {
 	// and a getEntry method
 
 	
-	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
-
-		print("EntryEntity/ArrToEntryArr:")
-		let filtered = entityArr.filter({
-			(e:EntryEntity?) -> (Bool) in
-			if(e == nil){
-//				print("EntryEntity/ArrToEntryArr/filter: e is nil")
-				return false
-			} else {
-//				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
-//				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
-//				self.realize(ee: e!)
-				print(EntryEntity.toString(ee: e!))
-//				print(e!)
-//				print("\(e)\nid:\(e.id)\ntime:\(e.time.description)")
-				return true
-			}
-		})
-//		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
-		if (filtered.count == 0){
-			print("------------------------------------END ArrToEntryArr\n")
-			return []
-		} else {
-			// get array of unwrapped Es from EEs
-			return filtered.map({
-				(ee:EntryEntity?) -> Entry in  // ! used bc checked if nil in filter
-				print( EntryEntity.toString(ee: ee!) )
-				
-				let e = Entry(entryEntity: ee!) //this is coming back nil ERROR
-				
-				guard let finalEntry = e else {
-					print("EntryEntity/ArrToEntryArr/map: ERROR returning Fake Entry")
-					print("------------------------------------END ArrToEntryArr\n")
-					return Entry()
-				}
-				print("------------------------------------END ArrToEntryArr\n")
-				return finalEntry
-			})
-		}
-		
-	}
+//	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
+//
+//		print("EntryEntity/ArrToEntryArr:")
+//		let filtered = entityArr.filter({
+//			(e:EntryEntity?) -> (Bool) in
+//			if(e == nil){
+////				print("EntryEntity/ArrToEntryArr/filter: e is nil")
+//				return false
+//			} else {
+////				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
+////				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
+////				self.realize(ee: e!)
+//				print(EntryEntity.toString(ee: e!))
+////				print(e!)
+////				print("\(e)\nid:\(e.id)\ntime:\(e.time.description)")
+//				return true
+//			}
+//		})
+////		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
+//		if (filtered.count == 0){
+//			print("------------------------------------END ArrToEntryArr\n")
+//			return []
+//		} else {
+//			// get array of unwrapped Es from EEs
+//			return filtered.map({
+//				(ee:EntryEntity?) -> Entry in  // ! used bc checked if nil in filter
+//				print( EntryEntity.toString(ee: ee!) )
+//
+//				let e = Entry(entryEntity: ee!) //this is coming back nil ERROR
+//
+//				guard let finalEntry = e else {
+//					print("EntryEntity/ArrToEntryArr/map: ERROR returning Fake Entry")
+//					print("------------------------------------END ArrToEntryArr\n")
+//					return Entry()
+//				}
+//				print("------------------------------------END ArrToEntryArr\n")
+//				return finalEntry
+//			})
+//		}
+//
+//	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -195,7 +195,8 @@ public struct Substance {
 				return nil
 		}
 		self.name = name
-		self.entries = substanceEntity.entriesArray //TODO:
+//		self.entries = substanceEntity.entriesArray //TODO:
+		self.entries = []
 		self.managedObject = substanceEntity
 	}
 	
@@ -238,14 +239,14 @@ public class SubstanceEntity: NSManagedObject, Codable {
 		try container.encode(entries as? Set<EntryEntity>, forKey: .entries)
 	}
 
-	public var entriesArray: [Entry] {
-		let set = entries as? Set<EntryEntity> ?? []
-		let sorted = set.sorted {
-			$0.id < $1.id
-			//might want to switch to a > so that more recent ids come first
-		}
-		return EntryEntity.ArrToEntryArr(entityArr: sorted)
-	}
+//	public var entriesArray: [Entry] {
+//		let set = entries as? Set<EntryEntity> ?? []
+//		let sorted = set.sorted {
+//			$0.id < $1.id
+//			//might want to switch to a > so that more recent ids come first
+//		}
+//		return EntryEntity.ArrToEntryArr(entityArr: sorted)
+//	}
 	
 	public static func ArrToSubstanceArr(entityArr: [SubstanceEntity]) -> [Substance]{
 		let filtered = entityArr.filter({
