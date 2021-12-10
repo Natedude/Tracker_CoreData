@@ -102,13 +102,17 @@ public class EntryEntity: NSManagedObject, Codable {
 		try container.encode(substance, forKey: .substance)
 	}
 	
-	public func getEntry() -> Entry{
-		let eOpt = Entry(entryEntity: self) //Entry?
-		guard let e = eOpt else {
-			return Entry()
-		}
-		return e
-	}
+	// maybe instead of Entry having a init that makes an Entry from a MO,
+	// I could have EntryEntity have an Entry field
+	// it would create it when
+	// and a getEntry method
+//	public func getEntry() -> Entry{
+//		let eOpt = Entry(entryEntity: self) //Entry?
+//		guard let e = eOpt else {
+//			return Entry()
+//		}
+//		return e
+//	}
 	
 	public static func printArr(eeArr: [EntryEntity]){
 		print("EntryEntity/printArr:")
@@ -132,14 +136,8 @@ public class EntryEntity: NSManagedObject, Codable {
 		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
 		_ = "\(ee)\nid:\(ee.id)\ntime:\(timeStr)"
 	}
-	// maybe instead of Entry having a init that makes an Entry from a MO,
-	// I could have EntryEntity have an Entry field
-	// it would create it when
-	// and a getEntry method
 
-	/////////////////////////////////////////////////////////////////////////////// eeArr2eArr
-	/////////////////// eeArr2eArr ///////////////////////////////////////////////////// FOCUS ---
-	/////////////////////////////////////////////////////////////////////////////// eeArr2eArr
+	// convert [EntryEntity] to [Entry] to more easily manage structs
 	public static func eeArr2eArr(eeArr: [EntryEntity]) -> [Entry]{
 //		print("EntryEntity/eeArr2eArr:")
 		let len = eeArr.count
