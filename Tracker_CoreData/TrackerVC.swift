@@ -13,8 +13,6 @@ import UIKit
 import CoreData
 import CoreDataManager
 
-
-
 class TrackerVC: UIViewController {
 	private let cdm = CoreDataManager.sharedInstance
 	private let cds = CoreDataStore()
@@ -26,7 +24,7 @@ class TrackerVC: UIViewController {
 		self.insertNewEntryNew(sender: self)
 	}
 	
-	var entries: [EntryEntity] = []
+	var entries: [Entry] = []
 	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
@@ -67,9 +65,9 @@ class TrackerVC: UIViewController {
 		let ctx = self.cdm.mainContext
 		let entryEntities = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
 		print("TrackerVC/fetchEntries:")
-		EntryEntity.printArr(eeArr: entryEntities)
-//		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities) as [Entry]
-//		self.printEntries()
+//		EntryEntity.printArr(eeArr: entryEntities)
+		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities) as [Entry]
+		self.printEntries()
 	}
 	
 //	func fetchSubstances() {
@@ -79,12 +77,6 @@ class TrackerVC: UIViewController {
 //		print(
 //			"fetchSubstances: typeof substances = \(type(of: self.substances))"
 //		)
-//	}
-	
-//	func getLastId() -> Int{
-//		let context = self.cdm.mainContext
-//		let entryManager = context.managerFor(EntryEntity.self)
-//		return (entryManager.max("id") as? Int) ?? 0
 //	}
 	
 	// Create new row in Entry table
@@ -98,10 +90,10 @@ class TrackerVC: UIViewController {
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
-		let e = Entry(id: (lastEntryID + 1), time: Date(), substance: Substance().managedObject)
+		let e = Entry(id: (lastEntryID + 1), time: Date(), sE: Substance().managedObject)
 //		e.time = Date()
 //		print("Created new Date: \(e.time)")
-		print(e)
+		print(EntryEntity.toString(ee: e.managedObject))
 	 /* printing id=1, correct time, but substance is NOT giving back
 		Fake_Substance from Substance() constructor... maybe remove Substance?
 	  */
@@ -117,14 +109,15 @@ class TrackerVC: UIViewController {
 //		self.printEntries()
 	}
 	
-//	func printEntries(){
-//		print("TrackerVC/printEntries:")
-//		_ = self.entries.map({
-//			(e: Entry) -> (Entry) in
-//			print(e)
-//			return e
-//		})
-//	}
+	func printEntries(){
+		print("TrackerVC/printEntries:")
+		_ = self.entries.map({
+			(e: Entry) -> (Entry) in
+			print(EntryEntity.toString(ee: e.managedObject))
+			return e
+		})
+		print("------------------------------------END printEntries\n")
+	}
 	
 	// log contents of self.entries
 //	func printEntries(){

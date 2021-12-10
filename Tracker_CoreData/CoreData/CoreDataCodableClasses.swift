@@ -49,17 +49,19 @@ public struct Entry {
 	}
 	
 	// create new MO by creating a struct
-	init(id: Int64, time: Date, substance: SubstanceEntity) {
+	init(id: Int64, time: Date, sE: SubstanceEntity) {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
+		self.managedObject.id = id
+		self.managedObject.time = time
 		self.id = id
 		self.time = time
-		self.substance = substance
+		self.substance = sE
 	}
 	
 	init(){
 		let s = Substance()
 		let sMO = s.managedObject
-		self.init(id: -1, time: Date(), substance: sMO)
+		self.init(id: -1, time: Date(), sE: sMO)
 	}
 	
 //	public static func printArr(eArr: [Entry]){
@@ -112,12 +114,13 @@ public class EntryEntity: NSManagedObject, Codable {
 			print(ee)
 			return ee
 		})
-		print()
+		print("------------------------------------END printArr\n")
 	}
 	
 	public static func toString(ee: EntryEntity) -> String{
+		print("EntryEntity/toString:")
 		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
-		return "\(ee)\nid:\(ee.id)\ntime:\(timeStr)"
+		return " -  Entry -id:\(ee.id) -time:\(timeStr)"
 	}
 	
 	// access fields so printing ee does not show <fault> and instead shows values
@@ -129,41 +132,10 @@ public class EntryEntity: NSManagedObject, Codable {
 	// I could have EntryEntity have an Entry field
 	// it would create it when
 	// and a getEntry method
-	
-//	public static func printEntityOptArr(entityOptArr: [EntryEntity?]){
-////		print("entityOptArr: \(entityOptArr)")
-//		_ = entityOptArr.map({
-//			(e:EntryEntity?) -> () in
-//			if(e == nil){
-//				print("EntryEntity/printEntityOptArr: e is nil")
-//			} else {
-////				let eUnwap = e!
-////				print(eUnwap)
-////				print(eUnwap.id)
-////				print(eUnwap.)
-//			}
-////			print("e:\(e ?? "nil")")
-////			print(e.id)
-//		})
-//	}
-//	public static func printEntityArr(entityOptArr: [EntryEntity?]){
-//		_ = entityOptArr.map({
-//			(e:EntryEntity?) -> () in
-//			if(e == nil){
-//				print("EntryEntity/printEntityArr: e is nil")
-//			} else {
-//				print(e!.toString())
-//			}
-//			//			print("e:\(e ?? "nil")")
-//			//			print(e.id)
-//		})
-//	}
+
 	
 	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
-//		let filtered = entityArr.filter({
-//			(e:EntryEntity?) -> (Bool) in
-//			return e == nil ? false : true
-//		})
+
 		print("EntryEntity/ArrToEntryArr:")
 		let filtered = entityArr.filter({
 			(e:EntryEntity?) -> (Bool) in
@@ -173,34 +145,35 @@ public class EntryEntity: NSManagedObject, Codable {
 			} else {
 //				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
 //				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
-				self.realize(ee: e!)
-				print(e!)
-//				let eOpt = Entry(entryEntity: e!)
-//				guard let e = eOpt else {
-//					print ("EntryEntity/toString: e is nil")
-//					return false
-//				}
+//				self.realize(ee: e!)
+				print(EntryEntity.toString(ee: e!))
+//				print(e!)
 //				print("\(e)\nid:\(e.id)\ntime:\(e.time.description)")
 				return true
 			}
-//			return e == nil ? false : true
 		})
 //		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
 		if (filtered.count == 0){
+			print("------------------------------------END ArrToEntryArr\n")
 			return []
 		} else {
 			// get array of unwrapped Es from EEs
 			return filtered.map({
 				(ee:EntryEntity?) -> Entry in  // ! used bc checked if nil in filter
-//				print( EntryEntity.toString(ee: e!) )
-				let e = Entry(entryEntity: ee!)
+				print( EntryEntity.toString(ee: ee!) )
+				
+				let e = Entry(entryEntity: ee!) //this is coming back nil ERROR
+				
 				guard let finalEntry = e else {
+					print("EntryEntity/ArrToEntryArr/map: ERROR returning Fake Entry")
+					print("------------------------------------END ArrToEntryArr\n")
 					return Entry()
 				}
+				print("------------------------------------END ArrToEntryArr\n")
 				return finalEntry
 			})
 		}
-		print()
+		
 	}
 }
 
@@ -231,6 +204,8 @@ public struct Substance {
 		self.name = name
 		self.entries = []
 		self.managedObject = SubstanceEntity(context: CoreDataManager.sharedInstance.mainContext)
+		self.managedObject.name = name
+		self.managedObject.entries = []
 	}
 	
 	init(){
