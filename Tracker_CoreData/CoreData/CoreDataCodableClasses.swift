@@ -30,36 +30,36 @@ extension CodingUserInfoKey {
 public struct Entry {
 	var id: Int64
 	var time: Date
-	var substance: SubstanceEntity
+//	var substance: SubstanceEntity
 	var managedObject: EntryEntity
 	
 	//turn MO into struct
 	init?(entryEntity: EntryEntity) {
 		guard
 			let id = entryEntity.value(forKey: "id") as? Int64,
-			let time = entryEntity.value(forKey: "time") as? Date,
-			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
+			let time = entryEntity.value(forKey: "time") as? Date
+//			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
 			else {
 				return nil
 			}
 		self.id = id
 		self.time = time
-		self.substance = substance
+//		self.substance = substance
 		self.managedObject = entryEntity
 	}
 	
 	// create new MO by creating a struct
-	init(id: Int64, time: Date, substance: SubstanceEntity) {
+	init(id: Int64, time: Date) {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
 		self.id = id
 		self.time = time
-		self.substance = substance
+//		self.substance = substance
 	}
 	
 	init(){
-		let s = Substance()
-		let sMO = s.managedObject
-		self.init(id: -1, time: Date(), substance: sMO)
+//		let s = Substance()
+//		let sMO = s.managedObject
+		self.init(id: -1, time: Date())
 	}
 	
 //	public static func printArr(eArr: [Entry]){
@@ -73,7 +73,7 @@ public class EntryEntity: NSManagedObject, Codable {
 //	let entry = Entry(entryEntity: self.this)
 	
 	enum CodingKeys: CodingKey {
-		case id, time, substance
+		case id, time
 	}
 
 	required convenience public init(from decoder: Decoder) throws {
@@ -86,14 +86,14 @@ public class EntryEntity: NSManagedObject, Codable {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		self.id = try container.decode(Int64.self, forKey: .id)
 		self.time = try container.decode(Date.self, forKey: .time)
-		self.substance = try container.decode(SubstanceEntity.self, forKey: .substance)
+//		self.substance = try container.decode(SubstanceEntity.self, forKey: .substance)
 	}
 
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(id, forKey: .id)
 		try container.encode(time, forKey: .time)
-		try container.encode(substance, forKey: .substance)
+//		try container.encode(substance, forKey: .substance)
 	}
 	
 	public func getEntry() -> Entry{
@@ -129,35 +129,6 @@ public class EntryEntity: NSManagedObject, Codable {
 	// I could have EntryEntity have an Entry field
 	// it would create it when
 	// and a getEntry method
-	
-//	public static func printEntityOptArr(entityOptArr: [EntryEntity?]){
-////		print("entityOptArr: \(entityOptArr)")
-//		_ = entityOptArr.map({
-//			(e:EntryEntity?) -> () in
-//			if(e == nil){
-//				print("EntryEntity/printEntityOptArr: e is nil")
-//			} else {
-////				let eUnwap = e!
-////				print(eUnwap)
-////				print(eUnwap.id)
-////				print(eUnwap.)
-//			}
-////			print("e:\(e ?? "nil")")
-////			print(e.id)
-//		})
-//	}
-//	public static func printEntityArr(entityOptArr: [EntryEntity?]){
-//		_ = entityOptArr.map({
-//			(e:EntryEntity?) -> () in
-//			if(e == nil){
-//				print("EntryEntity/printEntityArr: e is nil")
-//			} else {
-//				print(e!.toString())
-//			}
-//			//			print("e:\(e ?? "nil")")
-//			//			print(e.id)
-//		})
-//	}
 	
 	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
 //		let filtered = entityArr.filter({
@@ -201,89 +172,5 @@ public class EntryEntity: NSManagedObject, Codable {
 			})
 		}
 		print()
-	}
-}
-
-///////////////////////////////////////////////////////////////////////////////
-/////////////////// SUBSTANCE /////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-public struct Substance {
-	var name: String
-	var entries: [Entry]
-	var managedObject: SubstanceEntity
-	
-	//turn MO into struct
-	init?(substanceEntity: SubstanceEntity) {
-		guard
-			let name = substanceEntity.value(forKey: "name") as? String
-//			let entries = substanceEntity.value(forKey: "entries") as? NSSet
-			else {
-				return nil
-		}
-		self.name = name
-		self.entries = substanceEntity.entriesArray //TODO:
-		self.managedObject = substanceEntity
-	}
-	
-	// create new MO by creating a struct
-	init(name: String){
-		self.name = name
-		self.entries = []
-		self.managedObject = SubstanceEntity(context: CoreDataManager.sharedInstance.mainContext)
-	}
-	
-	init(){
-		self.init(name: "Fake_Substance")
-	}
-}
-
-
-@objc(SubstanceEntity)
-public class SubstanceEntity: NSManagedObject, Codable {
-	enum CodingKeys: CodingKey {
-		case name, entries
-	}
-
-	required convenience public init(from decoder: Decoder) throws {
-		guard let context = decoder.userInfo[CodingUserInfoKey.ctx] as? NSManagedObjectContext else {
-			throw DecoderConfigurationError.missingCtx
-		}
-
-		self.init(context: context)
-
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-		self.name = try container.decode(String.self, forKey: .name)
-		self.entries = try container.decode(Set<EntryEntity>.self, forKey: .entries) as NSSet
-	}
-
-	public func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(name, forKey: .name)
-		try container.encode(entries as? Set<EntryEntity>, forKey: .entries)
-	}
-
-	public var entriesArray: [Entry] {
-		let set = entries as? Set<EntryEntity> ?? []
-		let sorted = set.sorted {
-			$0.id < $1.id
-			//might want to switch to a > so that more recent ids come first
-		}
-		return EntryEntity.ArrToEntryArr(entityArr: sorted)
-	}
-	
-	public static func ArrToSubstanceArr(entityArr: [SubstanceEntity]) -> [Substance]{
-		let filtered = entityArr.filter({
-			(s:SubstanceEntity?) -> (Bool) in
-			return s == nil ? false : true
-		})
-		if (filtered.count == 0){
-			return []
-		} else {
-			return filtered.map({
-				(s:SubstanceEntity) -> Substance in
-				return Substance(substanceEntity: s)! // checked if nil in filter
-			})
-		}
 	}
 }

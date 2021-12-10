@@ -13,8 +13,6 @@ import UIKit
 import CoreData
 import CoreDataManager
 
-
-
 class TrackerVC: UIViewController {
 	private let cdm = CoreDataManager.sharedInstance
 	private let cds = CoreDataStore()
@@ -27,7 +25,7 @@ class TrackerVC: UIViewController {
 	}
 	
 	var entries: [EntryEntity] = []
-	var substances: [Substance] = []
+//	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -98,7 +96,7 @@ class TrackerVC: UIViewController {
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
-		let e = Entry(id: (lastEntryID + 1), time: Date(), substance: Substance().managedObject)
+		let e = Entry(id: (lastEntryID + 1), time: Date())
 //		e.time = Date()
 //		print("Created new Date: \(e.time)")
 		print(e)

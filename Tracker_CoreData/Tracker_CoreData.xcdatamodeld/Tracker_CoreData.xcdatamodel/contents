@@ -3,14 +3,8 @@
     <entity name="EntryEntity" representedClassName="EntryEntity" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="substance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubstanceEntity" inverseName="entries" inverseEntity="SubstanceEntity"/>
-    </entity>
-    <entity name="SubstanceEntity" representedClassName="SubstanceEntity" syncable="YES">
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntryEntity" inverseName="substance" inverseEntity="EntryEntity"/>
     </entity>
     <elements>
-        <element name="EntryEntity" positionX="0" positionY="0" width="128" height="104"/>
-        <element name="SubstanceEntity" positionX="0" positionY="0" width="128" height="85"/>
+        <element name="EntryEntity" positionX="0" positionY="0" width="128" height="85"/>
     </elements>
 </model>

@@ -19,6 +19,5 @@ extension EntryEntity {
 
     @NSManaged public var id: Int64
     @NSManaged public var time: Date?
-    @NSManaged public var substance: SubstanceEntity?
 
 }
