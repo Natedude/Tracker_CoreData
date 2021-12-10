@@ -67,5 +67,52 @@
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="8iw-2J-Llw">
+            <objects>
+                <viewController id="X91-li-w0u" customClass="ViewController" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kuP-5c-qB4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDc-Ea-EBG">
+                                <rect key="frame" x="112" y="767" width="190" height="41"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Add Entry"/>
+                                <connections>
+                                    <action selector="addEntryButtonPress:" destination="X91-li-w0u" eventType="touchUpInside" id="jwI-Wt-dQk"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Entries:" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="R2z-kN-xr6">
+                                <rect key="frame" x="20" y="63" width="374" height="673"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="R2z-kN-xr6" firstAttribute="leading" secondItem="2qo-wo-Sax" secondAttribute="leading" constant="20" id="6AX-EP-SHO"/>
+                            <constraint firstItem="2qo-wo-Sax" firstAttribute="trailing" secondItem="iDc-Ea-EBG" secondAttribute="trailing" constant="112" id="GOW-RF-wq0"/>
+                            <constraint firstItem="iDc-Ea-EBG" firstAttribute="leading" secondItem="2qo-wo-Sax" secondAttribute="leading" constant="112" id="PK4-Cz-T0m"/>
+                            <constraint firstItem="iDc-Ea-EBG" firstAttribute="top" secondItem="R2z-kN-xr6" secondAttribute="bottom" constant="31" id="fIJ-Hs-6Ya"/>
+                            <constraint firstItem="2qo-wo-Sax" firstAttribute="trailing" secondItem="R2z-kN-xr6" secondAttribute="trailing" constant="20" id="hMZ-NR-H92"/>
+                            <constraint firstItem="2qo-wo-Sax" firstAttribute="bottom" secondItem="iDc-Ea-EBG" secondAttribute="bottom" constant="54" id="oBG-xf-2EM"/>
+                            <constraint firstItem="R2z-kN-xr6" firstAttribute="top" secondItem="2qo-wo-Sax" secondAttribute="top" constant="19" id="oRS-ak-xoL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2qo-wo-Sax"/>
+                    </view>
+                    <connections>
+                        <outlet property="addEntryButton" destination="iDc-Ea-EBG" id="IUd-8v-duz"/>
+                        <outlet property="textView" destination="R2z-kN-xr6" id="wlk-ee-LLq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ReX-UM-Fsa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="132" y="139"/>
+        </scene>
     </scenes>
 </document>
