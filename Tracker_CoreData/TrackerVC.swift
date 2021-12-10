@@ -24,7 +24,7 @@ class TrackerVC: UIViewController {
 		self.insertNewEntry(sender: self)
 	}
 	
-	var entries: [EntryEntity] = []
+	var entries: [Entry] = []
 	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
@@ -62,12 +62,14 @@ class TrackerVC: UIViewController {
 	// also print for now so I can see what EntryEntity.ArrToEntryArr prints
 	// and then what this prints
 	func fetchEntries() {
-		let ctx = self.cdm.mainContext
-		self.entries = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
 		print("TrackerVC/fetchEntries:")
-//		EntryEntity.printArr(eeArr: entryEntities)
-//		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities) as [Entry]
+		let ctx = self.cdm.mainContext
+		let eeArr: [EntryEntity] = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
+		self.entries = EntryEntity.eeArr2eArr(eeArr: eeArr)
+
+		//printing
 		self.printEntries()
+		print("------------------------------------END fetchEntries\n")
 	}
 	
 //	func fetchSubstances() {
@@ -113,8 +115,8 @@ class TrackerVC: UIViewController {
 	func printEntries(){
 		print("TrackerVC/printEntries:")
 		_ = self.entries.map({
-			(e: EntryEntity) -> (EntryEntity) in
-			print(EntryEntity.toString(ee: e))
+			(e: Entry) -> (Entry) in
+			print(EntryEntity.toString(ee: e.managedObject))
 			return e
 		})
 		print("------------------------------------END printEntries\n")

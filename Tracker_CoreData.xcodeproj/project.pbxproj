@@ -83,9 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				64814149274E2D1200639A0F /* CoreData */,
+				6422940D274E2BDD0002E523 /* TrackerVC.swift */,
 				64229409274E2BDD0002E523 /* AppDelegate.swift */,
 				6422940B274E2BDD0002E523 /* SceneDelegate.swift */,
-				6422940D274E2BDD0002E523 /* TrackerVC.swift */,
 				6422940F274E2BDD0002E523 /* Main.storyboard */,
 				64229415274E2BDD0002E523 /* Assets.xcassets */,
 				64229417274E2BDD0002E523 /* LaunchScreen.storyboard */,
@@ -100,8 +100,8 @@
 			children = (
 				643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */,
 				6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */,
-				643973322762022200177717 /* CoreDataCodableClasses.swift */,
 				64C608132761EEF800F8163A /* CoreDataStore.swift */,
+				643973322762022200177717 /* CoreDataCodableClasses.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";

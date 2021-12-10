@@ -35,17 +35,21 @@ public struct Entry {
 	
 	//turn MO into struct
 	init?(entryEntity: EntryEntity) {
+//		print("EntryEntity/Entry()/init:")
 		guard
 			let id = entryEntity.value(forKey: "id") as? Int64,
-			let time = entryEntity.value(forKey: "time") as? Date,
-			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
+			let time = entryEntity.value(forKey: "time") as? Date
+//			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
 			else {
+				print("Entry()/init: !!! ERROR return nil instead of Entry instance !!!")
 				return nil
 			}
 		self.id = id
 		self.time = time
-		self.substance = substance
+		self.substance = Substance().managedObject
 		self.managedObject = entryEntity
+//		print(EntryEntity.toString(ee: entryEntity) + "Entry(ee)/init SUCCESS")
+//		print("------------------------------------END init\n")
 	}
 	
 	// create new MO by creating a struct
@@ -133,7 +137,37 @@ public class EntryEntity: NSManagedObject, Codable {
 	// it would create it when
 	// and a getEntry method
 
-	
+	/////////////////////////////////////////////////////////////////////////////// eeArr2eArr
+	/////////////////// eeArr2eArr ///////////////////////////////////////////////////// FOCUS ---
+	/////////////////////////////////////////////////////////////////////////////// eeArr2eArr
+	public static func eeArr2eArr(eeArr: [EntryEntity]) -> [Entry]{
+//		print("EntryEntity/eeArr2eArr:")
+		let len = eeArr.count
+		var eArr: [Entry] = []
+		//		print("len=\(len)")
+		for i in 0...(len-1) {
+			//			print(eeArr[i])
+			let eOpt = Entry(entryEntity: eeArr[i]) //not actually calling the constructor?
+			guard let e = eOpt else {
+				print("""
+					TrackerVC/eeArr2eArr: !!! ERROR i = \(i)
+					&& `guard let e = eOpt == NIL -> true` !!!
+					""")
+				break;
+			}
+			eArr.append(e)
+		}
+		if eArr.count > 0 {
+			print("eeArr2eArr: SUCCESS - type(eArr) = \(type(of: eArr))")
+			print("------------------------------------END eeArr2eArr\n")
+			return eArr
+		} else {
+			// failure
+			print("eeArr2eArr: FAILURE")
+			return []
+		}
+		//		print("------------------------------------END eeArr2eArr\n")
+	}
 //	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
 //
 //		print("EntryEntity/ArrToEntryArr:")
