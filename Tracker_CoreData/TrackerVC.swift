@@ -16,44 +16,29 @@ import CoreDataManager
 
 
 class TrackerVC: UIViewController {
-
-	
-//	var cdm: CoreDataManager
 	private let cdm = CoreDataManager.sharedInstance
 	private let cds = CoreDataStore()
-
-//	@IBOutlet weak var textView: UITextView!
-//	@IBOutlet weak var addEntryButton: UIButton!
 	let textViewStart = "Entries:\n"
-//	var viewDidLoad = false
 	let format = DateFormatter()
 	
 	@IBAction func addEntryEntity(_ sender: Any) {
 		print("addEntryButtonPress")
 		self.insertNewEntryNew(sender: self)
 	}
-	//	@IBAction func addEntryButtonPress(_ sender: Any) {
-//		print("addEntryButtonPress")
-//		self.insertNewEntryNew(sender: self)
-////		self.refreshEntries()
-//	}
-	//	@IBAction func addEntryButtonPress(_ sender: Any) {
-//		print("addEntryButtonPress")
-//		self.insertNewEntry(sender: self)
-////		self.refreshEntries()
-//	}
 	
-	// TODO:
-	var entries: [EntryEntity] = []
-	// person.value(forKeyPath: "name") as? String
+	var entries: [Entry] = []
+	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
+		
 		format.dateFormat = "h:mma"
 //		self.refreshEntries()
 //		self.deleteAllEntries()
 		self.fetchEntries()
+		// fetchSubstances
+		self.printEntries()
 	}
 	
 	func getCtx() -> NSManagedObjectContext{
@@ -72,11 +57,27 @@ class TrackerVC: UIViewController {
 	// Sync db -> self.entries
 	func fetchEntries() {
 		let ctx = self.cdm.mainContext
-		self.entries = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
+		let entryEntities = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
+		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities)
 		print(
 			"fetchEntries: typeof entries = \(type(of: self.entries))"
 		)
 	}
+	
+	func fetchSubstances() {
+		let ctx = self.cdm.mainContext
+		let substanceEntities = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
+		self.substances = SubstanceEntity.ArrToSubstanceArr(entityArr: substanceEntities)
+		print(
+			"fetchSubstances: typeof substances = \(type(of: self.substances))"
+		)
+	}
+	
+//	func getLastId() -> Int{
+//		let context = self.cdm.mainContext
+//		let entryManager = context.managerFor(EntryEntity.self)
+//		return (entryManager.max("id") as? Int) ?? 0
+//	}
 	
 	// Create new row in Entry table
 	@objc func insertNewEntryNew(sender: AnyObject){
@@ -87,13 +88,13 @@ class TrackerVC: UIViewController {
 		*/
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
-		let lastEntryID = (entryManager.max("id") as? Int) ?? 0
+		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
 		// ^ THIS LINE gives error because calls max and that tries to agregate all the entries, but the NSEntityDescription is returning nil
-		
-		let e = EntryEntity(context: context)
-		e.time = Date()
-		print("Created new Date: \(e.time!)")
-		e.id = Int64(lastEntryID + 1)
+//		let s = Substance(name: "Test")
+		let e = Entry(id: (lastEntryID + 1), time: Date(), substance: Substance().managedObject)
+//		e.time = Date()
+		print("Created new Date: \(e.time)")
+//		e.id = Int64(lastEntryID + 1)
 //		context.insert(e)
 		do {
 			try context.saveIfChanged()

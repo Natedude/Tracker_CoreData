@@ -28,33 +28,46 @@ extension CodingUserInfoKey {
 ///////////////////////////////////////////////////////////////////////////////
 
 public struct Entry {
+	var id: Int64
 	var time: Date
 	var substance: SubstanceEntity
-	var managedObject: NSManagedObject
+	var managedObject: EntryEntity
 	
 	//turn MO into struct
 	init?(entryEntity: EntryEntity) {
 		guard
+			let id = entryEntity.value(forKey: "id") as? Int64,
 			let time = entryEntity.value(forKey: "time") as? Date,
 			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
 			else {
 				return nil
-		}
+			}
+		self.id = id
 		self.time = time
 		self.substance = substance
 		self.managedObject = entryEntity
 	}
 	
 	// create new MO by creating a struct
-	init(time: Date, substance: SubstanceEntity) {
+	init(id: Int64, time: Date, substance: SubstanceEntity) {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
+		self.id = id
 		self.time = time
 		self.substance = substance
+	}
+	
+	init(){
+		let s = Substance()
+		let sMO = s.managedObject
+		self.init(id: -1, time: Date(), substance: sMO)
 	}
 }
 
 @objc(EntryEntity)
 public class EntryEntity: NSManagedObject, Codable {
+//	let this = self
+//	let entry = Entry(entryEntity: self.this)
+	
 	enum CodingKeys: CodingKey {
 		case id, time, substance
 	}
@@ -64,7 +77,7 @@ public class EntryEntity: NSManagedObject, Codable {
 			throw DecoderConfigurationError.missingCtx
 		}
 
-		self.init(context: context)
+		self.init(context: context) // constructor that accepts a ctx and adds EE into ctx and returns it
 
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		self.id = try container.decode(Int64.self, forKey: .id)
@@ -78,6 +91,90 @@ public class EntryEntity: NSManagedObject, Codable {
 		try container.encode(time, forKey: .time)
 		try container.encode(substance, forKey: .substance)
 	}
+	
+	public func getEntry() -> Entry{
+		let eOpt = Entry(entryEntity: self) //Entry?
+		guard let e = eOpt else {
+			return Entry()
+		}
+		return e
+	}
+	
+	public func toString() -> String{
+		let eOpt = Entry(entryEntity: self)
+		guard let e = eOpt else {
+			return "EntryEntity/toString: e is nil"
+		}
+		return "\(e)\nid:\(e.id)\ntime:\(e.time.description)"
+	}
+	// maybe instead of Entry having a init that makes an Entry from a MO,
+	// I could have EntryEntity have an Entry field
+	// it would create it when
+	// and a getEntry method
+	
+//	public static func printEntityOptArr(entityOptArr: [EntryEntity?]){
+////		print("entityOptArr: \(entityOptArr)")
+//		_ = entityOptArr.map({
+//			(e:EntryEntity?) -> () in
+//			if(e == nil){
+//				print("EntryEntity/printEntityOptArr: e is nil")
+//			} else {
+////				let eUnwap = e!
+////				print(eUnwap)
+////				print(eUnwap.id)
+////				print(eUnwap.)
+//			}
+////			print("e:\(e ?? "nil")")
+////			print(e.id)
+//		})
+//	}
+	public static func printEntityArr(entityOptArr: [EntryEntity?]){
+		_ = entityOptArr.map({
+			(e:EntryEntity?) -> () in
+			if(e == nil){
+				print("EntryEntity/printEntityArr: e is nil")
+			} else {
+				print(e!.toString())
+			}
+			//			print("e:\(e ?? "nil")")
+			//			print(e.id)
+		})
+	}
+	
+	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
+//		let filtered = entityArr.filter({
+//			(e:EntryEntity?) -> (Bool) in
+//			return e == nil ? false : true
+//		})
+		let filtered = entityArr.filter({
+			(e:EntryEntity?) -> (Bool) in
+			if(e == nil){
+				print("EntryEntity/ArrToEntryArr/filter: e is nil")
+				return false
+			} else {
+				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
+				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
+//				let eOpt = Entry(entryEntity: e!)
+//				guard let e = eOpt else {
+//					print ("EntryEntity/toString: e is nil")
+//					return false
+//				}
+//				print("\(e)\nid:\(e.id)\ntime:\(e.time.description)")
+				return true
+			}
+//			return e == nil ? false : true
+		})
+		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
+		if (filtered.count == 0){
+			return []
+		} else {
+			return filtered.map({
+				(e:EntryEntity?) -> Entry in
+				print(e?.toString() ?? "EntryEntity/ArrToEntryArr: e is nil")
+				return Entry() // checked if nil in filter
+			})
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -87,7 +184,7 @@ public class EntryEntity: NSManagedObject, Codable {
 public struct Substance {
 	var name: String
 	var entries: [Entry]
-	var managedObject: NSManagedObject
+	var managedObject: SubstanceEntity
 	
 	//turn MO into struct
 	init?(substanceEntity: SubstanceEntity) {
@@ -107,6 +204,10 @@ public struct Substance {
 		self.name = name
 		self.entries = []
 		self.managedObject = SubstanceEntity(context: CoreDataManager.sharedInstance.mainContext)
+	}
+	
+	init(){
+		self.init(name: "Fake_Substance")
 	}
 }
 
@@ -141,16 +242,20 @@ public class SubstanceEntity: NSManagedObject, Codable {
 			$0.id < $1.id
 			//might want to switch to a > so that more recent ids come first
 		}
-		let filtered = sorted.filter({
-			(e:EntryEntity?) -> (Bool) in
-			return e == nil ? false : true
+		return EntryEntity.ArrToEntryArr(entityArr: sorted)
+	}
+	
+	public static func ArrToSubstanceArr(entityArr: [SubstanceEntity]) -> [Substance]{
+		let filtered = entityArr.filter({
+			(s:SubstanceEntity?) -> (Bool) in
+			return s == nil ? false : true
 		})
 		if (filtered.count == 0){
 			return []
 		} else {
 			return filtered.map({
-				(e:EntryEntity) -> Entry in
-				return Entry(entryEntity: e)! // checked if nil in filter
+				(s:SubstanceEntity) -> Substance in
+				return Substance(substanceEntity: s)! // checked if nil in filter
 			})
 		}
 	}
