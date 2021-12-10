@@ -48,6 +48,8 @@ public struct Entry {
 	// create new MO by creating a struct
 	init(id: Int64, time: Date) {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
+		self.managedObject.id = id
+		self.managedObject.time = time
 		self.id = id
 		self.time = time
 	}
@@ -59,6 +61,11 @@ public struct Entry {
 
 @objc(EntryEntity)
 public class EntryEntity: NSManagedObject {
+	
+	// maybe instead of Entry having a init that makes an Entry from a MO,
+	// I could have EntryEntity have an Entry field
+	// it would create it when
+	// and a getEntry method
 	public func getEntry() -> Entry{
 		let eOpt = Entry(entryEntity: self) //Entry?
 		guard let e = eOpt else {
@@ -75,7 +82,7 @@ public class EntryEntity: NSManagedObject {
 			print(ee)
 			return ee
 		})
-		print()
+		print("---------------------------------------------END printArr\n")
 	}
 	
 	public static func toString(ee: EntryEntity) -> String{
@@ -88,17 +95,13 @@ public class EntryEntity: NSManagedObject {
 		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
 		_ = "\(ee)\nid:\(ee.id)\ntime:\(timeStr)"
 	}
-	// maybe instead of Entry having a init that makes an Entry from a MO,
-	// I could have EntryEntity have an Entry field
-	// it would create it when
-	// and a getEntry method
 	
 	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
 		print("EntryEntity/ArrToEntryArr:")
 		let filtered = entityArr.filter({
 			(e:EntryEntity?) -> (Bool) in
 			if(e == nil){
-//				print("EntryEntity/ArrToEntryArr/filter: e is nil")
+				print("EntryEntity/ArrToEntryArr/filter: e is nil")
 				return false
 			} else {
 				self.realize(ee: e!)
@@ -106,16 +109,17 @@ public class EntryEntity: NSManagedObject {
 				return true
 			}
 		})
-//		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
+		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
 		if (filtered.count == 0){
 			return []
 		} else {
 			// get array of unwrapped Es from EEs
 			return filtered.map({
-				(ee:EntryEntity?) -> Entry in  // ! used bc checked if nil in filter
-//				print( EntryEntity.toString(ee: e!) )
-				let e = Entry(entryEntity: ee!)
+				(ee:EntryEntity?) -> Entry in
+//				print( EntryEntity.toString(ee: ee!) )
+				let e = Entry(entryEntity: ee!) // ! used bc checked if nil in filter
 				guard let finalEntry = e else {
+					print("EntryEntity/ArrToEntryArr/map:\nreturning blank Entry()")
 					return Entry() // <------------------ This is maybe ERROR TODO:
 				}
 				return finalEntry

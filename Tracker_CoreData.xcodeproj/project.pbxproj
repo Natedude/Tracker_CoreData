@@ -13,7 +13,7 @@
 		64229411274E2BDD0002E523 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6422940F274E2BDD0002E523 /* Main.storyboard */; };
 		64229416274E2BDD0002E523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64229415274E2BDD0002E523 /* Assets.xcassets */; };
 		64229419274E2BDD0002E523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64229417274E2BDD0002E523 /* LaunchScreen.storyboard */; };
-		643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973322762022200177717 /* CoreDataCodableClasses.swift */; };
+		643973332762022200177717 /* EntryEntity+EntryStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973322762022200177717 /* EntryEntity+EntryStruct.swift */; };
 		644863F22762FC430065C95B /* EntryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644863F02762FC430065C95B /* EntryEntity+CoreDataProperties.swift */; };
 		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
 		64C608142761EEF800F8163A /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C608132761EEF800F8163A /* CoreDataStore.swift */; };
@@ -30,7 +30,7 @@
 		64229415274E2BDD0002E523 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64229418274E2BDD0002E523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6422941A274E2BDD0002E523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		643973322762022200177717 /* CoreDataCodableClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataCodableClasses.swift; sourceTree = "<group>"; };
+		643973322762022200177717 /* EntryEntity+EntryStruct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EntryEntity+EntryStruct.swift"; sourceTree = "<group>"; };
 		644863F02762FC430065C95B /* EntryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64C608132761EEF800F8163A /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		A2FDC7E84BB66FC001DFC8DD /* Pods-Tracker_CoreData.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.release.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.release.xcconfig"; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				644863F02762FC430065C95B /* EntryEntity+CoreDataProperties.swift */,
-				643973322762022200177717 /* CoreDataCodableClasses.swift */,
+				643973322762022200177717 /* EntryEntity+EntryStruct.swift */,
 				64C608132761EEF800F8163A /* CoreDataStore.swift */,
 			);
 			path = CoreData;
@@ -226,7 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */,
+				643973332762022200177717 /* EntryEntity+EntryStruct.swift in Sources */,
 				644863F22762FC430065C95B /* EntryEntity+CoreDataProperties.swift in Sources */,
 				6422940E274E2BDD0002E523 /* TrackerVC.swift in Sources */,
 				6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */,

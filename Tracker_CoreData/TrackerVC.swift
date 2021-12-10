@@ -89,6 +89,7 @@ class TrackerVC: UIViewController {
 		} catch {
 			print("insertNewEntry() ERROR: \(error)")
 		}
+		print("---------------------------------------------\n")
 		self.fetchEntries()
 //		self.printEntries()
 	}
