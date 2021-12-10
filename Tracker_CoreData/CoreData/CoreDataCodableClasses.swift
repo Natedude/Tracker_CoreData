@@ -61,6 +61,10 @@ public struct Entry {
 		let sMO = s.managedObject
 		self.init(id: -1, time: Date(), substance: sMO)
 	}
+	
+//	public static func printArr(eArr: [Entry]){
+//
+//	}
 }
 
 @objc(EntryEntity)
@@ -100,12 +104,26 @@ public class EntryEntity: NSManagedObject, Codable {
 		return e
 	}
 	
-	public func toString() -> String{
-		let eOpt = Entry(entryEntity: self)
-		guard let e = eOpt else {
-			return "EntryEntity/toString: e is nil"
-		}
-		return "\(e)\nid:\(e.id)\ntime:\(e.time.description)"
+	public static func printArr(eeArr: [EntryEntity]){
+		print("EntryEntity/printArr:")
+		_ = eeArr.map({
+			(ee: EntryEntity) -> (EntryEntity) in
+			EntryEntity.realize(ee: ee)
+			print(ee)
+			return ee
+		})
+		print()
+	}
+	
+	public static func toString(ee: EntryEntity) -> String{
+		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
+		return "\(ee)\nid:\(ee.id)\ntime:\(timeStr)"
+	}
+	
+	// access fields so printing ee does not show <fault> and instead shows values
+	public static func realize(ee: EntryEntity){
+		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
+		_ = "\(ee)\nid:\(ee.id)\ntime:\(timeStr)"
 	}
 	// maybe instead of Entry having a init that makes an Entry from a MO,
 	// I could have EntryEntity have an Entry field
@@ -128,32 +146,35 @@ public class EntryEntity: NSManagedObject, Codable {
 ////			print(e.id)
 //		})
 //	}
-	public static func printEntityArr(entityOptArr: [EntryEntity?]){
-		_ = entityOptArr.map({
-			(e:EntryEntity?) -> () in
-			if(e == nil){
-				print("EntryEntity/printEntityArr: e is nil")
-			} else {
-				print(e!.toString())
-			}
-			//			print("e:\(e ?? "nil")")
-			//			print(e.id)
-		})
-	}
+//	public static func printEntityArr(entityOptArr: [EntryEntity?]){
+//		_ = entityOptArr.map({
+//			(e:EntryEntity?) -> () in
+//			if(e == nil){
+//				print("EntryEntity/printEntityArr: e is nil")
+//			} else {
+//				print(e!.toString())
+//			}
+//			//			print("e:\(e ?? "nil")")
+//			//			print(e.id)
+//		})
+//	}
 	
 	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
 //		let filtered = entityArr.filter({
 //			(e:EntryEntity?) -> (Bool) in
 //			return e == nil ? false : true
 //		})
+		print("EntryEntity/ArrToEntryArr:")
 		let filtered = entityArr.filter({
 			(e:EntryEntity?) -> (Bool) in
 			if(e == nil){
-				print("EntryEntity/ArrToEntryArr/filter: e is nil")
+//				print("EntryEntity/ArrToEntryArr/filter: e is nil")
 				return false
 			} else {
-				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
-				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
+//				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
+//				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
+				self.realize(ee: e!)
+				print(e!)
 //				let eOpt = Entry(entryEntity: e!)
 //				guard let e = eOpt else {
 //					print ("EntryEntity/toString: e is nil")
@@ -164,16 +185,22 @@ public class EntryEntity: NSManagedObject, Codable {
 			}
 //			return e == nil ? false : true
 		})
-		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
+//		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
 		if (filtered.count == 0){
 			return []
 		} else {
+			// get array of unwrapped Es from EEs
 			return filtered.map({
-				(e:EntryEntity?) -> Entry in
-				print(e?.toString() ?? "EntryEntity/ArrToEntryArr: e is nil")
-				return Entry() // checked if nil in filter
+				(ee:EntryEntity?) -> Entry in  // ! used bc checked if nil in filter
+//				print( EntryEntity.toString(ee: e!) )
+				let e = Entry(entryEntity: ee!)
+				guard let finalEntry = e else {
+					return Entry()
+				}
+				return finalEntry
 			})
 		}
+		print()
 	}
 }
 

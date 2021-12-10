@@ -22,11 +22,11 @@ class TrackerVC: UIViewController {
 	let format = DateFormatter()
 	
 	@IBAction func addEntryEntity(_ sender: Any) {
-		print("addEntryButtonPress")
+		print("TrackerVC/addEntryButtonPress:")
 		self.insertNewEntryNew(sender: self)
 	}
 	
-	var entries: [Entry] = []
+	var entries: [EntryEntity] = []
 	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
@@ -38,7 +38,7 @@ class TrackerVC: UIViewController {
 //		self.deleteAllEntries()
 		self.fetchEntries()
 		// fetchSubstances
-		self.printEntries()
+//		self.printEntries()
 	}
 	
 	func getCtx() -> NSManagedObjectContext{
@@ -51,27 +51,35 @@ class TrackerVC: UIViewController {
 //	}
 	
 	func deleteAllEntries(){
-		_ = self.cdm.mainContext.managerFor(EntryEntity.self).delete()
+		let ctx = self.cdm.mainContext
+		_ = ctx.managerFor(EntryEntity.self).delete()
+		do{
+			try ctx.saveIfChanged()
+		} catch {
+			print("TrackerVC/deleteAllEntries: ctx.saveIfChanged() Error: \(error)")
+		}
 	}
 	
 	// Sync db -> self.entries
+	// also print for now so I can see what EntryEntity.ArrToEntryArr prints
+	// and then what this prints
 	func fetchEntries() {
 		let ctx = self.cdm.mainContext
 		let entryEntities = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
-		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities)
-		print(
-			"fetchEntries: typeof entries = \(type(of: self.entries))"
-		)
+		print("TrackerVC/fetchEntries:")
+		EntryEntity.printArr(eeArr: entryEntities)
+//		self.entries = EntryEntity.ArrToEntryArr(entityArr: entryEntities) as [Entry]
+//		self.printEntries()
 	}
 	
-	func fetchSubstances() {
-		let ctx = self.cdm.mainContext
-		let substanceEntities = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
-		self.substances = SubstanceEntity.ArrToSubstanceArr(entityArr: substanceEntities)
-		print(
-			"fetchSubstances: typeof substances = \(type(of: self.substances))"
-		)
-	}
+//	func fetchSubstances() {
+//		let ctx = self.cdm.mainContext
+//		let substanceEntities = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
+//		self.substances = SubstanceEntity.ArrToSubstanceArr(entityArr: substanceEntities)
+//		print(
+//			"fetchSubstances: typeof substances = \(type(of: self.substances))"
+//		)
+//	}
 	
 //	func getLastId() -> Int{
 //		let context = self.cdm.mainContext
@@ -86,14 +94,17 @@ class TrackerVC: UIViewController {
 		* get data for newEntry from the view or modal
 		* make Entry and save
 		*/
+		print("TrackerVC/insertNewEntryNew:")
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
-		// ^ THIS LINE gives error because calls max and that tries to agregate all the entries, but the NSEntityDescription is returning nil
-//		let s = Substance(name: "Test")
 		let e = Entry(id: (lastEntryID + 1), time: Date(), substance: Substance().managedObject)
 //		e.time = Date()
-		print("Created new Date: \(e.time)")
+//		print("Created new Date: \(e.time)")
+		print(e)
+	 /* printing id=1, correct time, but substance is NOT giving back
+		Fake_Substance from Substance() constructor... maybe remove Substance?
+	  */
 //		e.id = Int64(lastEntryID + 1)
 //		context.insert(e)
 		do {
@@ -103,18 +114,31 @@ class TrackerVC: UIViewController {
 			print("insertNewEntry() ERROR: \(error)")
 		}
 		self.fetchEntries()
-		self.printEntries()
+//		self.printEntries()
 	}
 	
+//	func printEntries(){
+//		print("TrackerVC/printEntries:")
+//		_ = self.entries.map({
+//			(e: Entry) -> (Entry) in
+//			print(e)
+//			return e
+//		})
+//	}
+	
 	// log contents of self.entries
-	func printEntries(){
-		print("-------------------------------- printing self.entries: ...")
-		for i in 0..<self.entries.count {
-			let e = self.entries[i]
-			print("\(i): \(e)")
-			print("---- '\(e.time)'")
-		}
-	}
+//	func printEntries(){
+//		print("-------------------------------- printing self.entries: ...")
+////		for i in 0..<self.entries.count {
+////			let e = self.entries[i]
+////			print("\(i): \(e)")
+////			print("---- '\(e.time)'")
+////		}
+//		_ = self.entries.map({
+//			(e: Entry) -> (Entry) in
+//			print(EntryEntity.toString(ee: <#T##EntryEntity#>))
+//		})
+//	}
 
 
 }
