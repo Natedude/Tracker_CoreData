@@ -17,8 +17,6 @@
 		643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973322762022200177717 /* CoreDataCodableClasses.swift */; };
 		643973382762067900177717 /* SubstanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */; };
 		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
-		64C608142761EEF800F8163A /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C608132761EEF800F8163A /* CoreDataStore.swift */; };
-		B7AD8E6E451E24529F3852A0 /* Pods_Tracker_CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34D12351C927270241AE32 /* Pods_Tracker_CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,13 +29,10 @@
 		64229415274E2BDD0002E523 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64229418274E2BDD0002E523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6422941A274E2BDD0002E523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		643973322762022200177717 /* CoreDataCodableClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataCodableClasses.swift; sourceTree = "<group>"; };
-		643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubstanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		64C608132761EEF800F8163A /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
-		A2FDC7E84BB66FC001DFC8DD /* Pods-Tracker_CoreData.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.release.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.release.xcconfig"; sourceTree = "<group>"; };
-		AAE6FE3C90DDE58F62087EC2 /* Pods-Tracker_CoreData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.debug.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.debug.xcconfig"; sourceTree = "<group>"; };
-		BE34D12351C927270241AE32 /* Pods_Tracker_CoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tracker_CoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64814152274E2D4F00639A0F /* Entry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataClass.swift"; sourceTree = "<group>"; };
+		64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataClass.swift"; sourceTree = "<group>"; };
+		64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Medication+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +93,10 @@
 		64814149274E2D1200639A0F /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */,
-				6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */,
-				64C608132761EEF800F8163A /* CoreDataStore.swift */,
-				643973322762022200177717 /* CoreDataCodableClasses.swift */,
+				64814152274E2D4F00639A0F /* Entry+CoreDataClass.swift */,
+				64814153274E2D4F00639A0F /* Entry+CoreDataProperties.swift */,
+				64814154274E2D4F00639A0F /* Medication+CoreDataClass.swift */,
+				64814155274E2D4F00639A0F /* Medication+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -236,7 +231,8 @@
 				643973312761FE1C00177717 /* EntryEntity+CoreDataProperties.swift in Sources */,
 				6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */,
 				6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */,
-				64C608142761EEF800F8163A /* CoreDataStore.swift in Sources */,
+				64814156274E2D4F00639A0F /* Entry+CoreDataClass.swift in Sources */,
+				64814159274E2D4F00639A0F /* Medication+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
