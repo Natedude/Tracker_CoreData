@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Entry" representedClassName="Entry" syncable="YES">
-        <attribute name="medName" optional="YES" attributeType="String"/>
+    <entity name="EntryEntity" representedClassName="EntryEntity" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="med_Rel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Medication" inverseName="entry_Rel" inverseEntity="Medication"/>
+        <relationship name="substance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubstanceEntity" inverseName="entries" inverseEntity="SubstanceEntity"/>
     </entity>
-    <entity name="Medication" representedClassName="Medication" syncable="YES">
-        <attribute name="medName" optional="YES" attributeType="String"/>
-        <attribute name="mgPerUnit" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="unitName" optional="YES" attributeType="String"/>
-        <relationship name="entry_Rel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Entry" inverseName="med_Rel" inverseEntity="Entry"/>
+    <entity name="SubstanceEntity" representedClassName="SubstanceEntity" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntryEntity" inverseName="substance" inverseEntity="EntryEntity"/>
     </entity>
     <elements>
-        <element name="Entry" positionX="-63" positionY="-27" width="128" height="28"/>
-        <element name="Medication" positionX="-63" positionY="-9" width="128" height="28"/>
+        <element name="EntryEntity" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="SubstanceEntity" positionX="0" positionY="0" width="128" height="85"/>
     </elements>
 </model>
