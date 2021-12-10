@@ -25,7 +25,6 @@ class TrackerVC: UIViewController {
 	}
 	
 	var entries: [EntryEntity] = []
-//	var substances: [Substance] = []
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,7 +34,6 @@ class TrackerVC: UIViewController {
 //		self.refreshEntries()
 //		self.deleteAllEntries()
 		self.fetchEntries()
-		// fetchSubstances
 //		self.printEntries()
 	}
 	
@@ -70,21 +68,6 @@ class TrackerVC: UIViewController {
 //		self.printEntries()
 	}
 	
-//	func fetchSubstances() {
-//		let ctx = self.cdm.mainContext
-//		let substanceEntities = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
-//		self.substances = SubstanceEntity.ArrToSubstanceArr(entityArr: substanceEntities)
-//		print(
-//			"fetchSubstances: typeof substances = \(type(of: self.substances))"
-//		)
-//	}
-	
-//	func getLastId() -> Int{
-//		let context = self.cdm.mainContext
-//		let entryManager = context.managerFor(EntryEntity.self)
-//		return (entryManager.max("id") as? Int) ?? 0
-//	}
-	
 	// Create new row in Entry table
 	@objc func insertNewEntryNew(sender: AnyObject){
 		/* triggered when nav + button pressed
@@ -97,14 +80,9 @@ class TrackerVC: UIViewController {
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
 		let e = Entry(id: (lastEntryID + 1), time: Date())
-//		e.time = Date()
-//		print("Created new Date: \(e.time)")
+
 		print(e)
-	 /* printing id=1, correct time, but substance is NOT giving back
-		Fake_Substance from Substance() constructor... maybe remove Substance?
-	  */
-//		e.id = Int64(lastEntryID + 1)
-//		context.insert(e)
+
 		do {
 			try context.saveIfChanged()
 			print("insertNewEntry: SUCCESS")
@@ -123,21 +101,5 @@ class TrackerVC: UIViewController {
 //			return e
 //		})
 //	}
-	
-	// log contents of self.entries
-//	func printEntries(){
-//		print("-------------------------------- printing self.entries: ...")
-////		for i in 0..<self.entries.count {
-////			let e = self.entries[i]
-////			print("\(i): \(e)")
-////			print("---- '\(e.time)'")
-////		}
-//		_ = self.entries.map({
-//			(e: Entry) -> (Entry) in
-//			print(EntryEntity.toString(ee: <#T##EntryEntity#>))
-//		})
-//	}
-
-
 }
 

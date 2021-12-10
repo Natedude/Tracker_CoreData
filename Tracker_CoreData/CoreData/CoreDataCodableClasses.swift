@@ -30,7 +30,6 @@ extension CodingUserInfoKey {
 public struct Entry {
 	var id: Int64
 	var time: Date
-//	var substance: SubstanceEntity
 	var managedObject: EntryEntity
 	
 	//turn MO into struct
@@ -38,13 +37,11 @@ public struct Entry {
 		guard
 			let id = entryEntity.value(forKey: "id") as? Int64,
 			let time = entryEntity.value(forKey: "time") as? Date
-//			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
 			else {
 				return nil
 			}
 		self.id = id
 		self.time = time
-//		self.substance = substance
 		self.managedObject = entryEntity
 	}
 	
@@ -53,49 +50,15 @@ public struct Entry {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
 		self.id = id
 		self.time = time
-//		self.substance = substance
 	}
 	
 	init(){
-//		let s = Substance()
-//		let sMO = s.managedObject
 		self.init(id: -1, time: Date())
 	}
-	
-//	public static func printArr(eArr: [Entry]){
-//
-//	}
 }
 
 @objc(EntryEntity)
-public class EntryEntity: NSManagedObject, Codable {
-//	let this = self
-//	let entry = Entry(entryEntity: self.this)
-	
-	enum CodingKeys: CodingKey {
-		case id, time
-	}
-
-	required convenience public init(from decoder: Decoder) throws {
-		guard let context = decoder.userInfo[CodingUserInfoKey.ctx] as? NSManagedObjectContext else {
-			throw DecoderConfigurationError.missingCtx
-		}
-
-		self.init(context: context) // constructor that accepts a ctx and adds EE into ctx and returns it
-
-		let container = try decoder.container(keyedBy: CodingKeys.self)
-		self.id = try container.decode(Int64.self, forKey: .id)
-		self.time = try container.decode(Date.self, forKey: .time)
-//		self.substance = try container.decode(SubstanceEntity.self, forKey: .substance)
-	}
-
-	public func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(id, forKey: .id)
-		try container.encode(time, forKey: .time)
-//		try container.encode(substance, forKey: .substance)
-	}
-	
+public class EntryEntity: NSManagedObject {
 	public func getEntry() -> Entry{
 		let eOpt = Entry(entryEntity: self) //Entry?
 		guard let e = eOpt else {
@@ -131,10 +94,6 @@ public class EntryEntity: NSManagedObject, Codable {
 	// and a getEntry method
 	
 	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
-//		let filtered = entityArr.filter({
-//			(e:EntryEntity?) -> (Bool) in
-//			return e == nil ? false : true
-//		})
 		print("EntryEntity/ArrToEntryArr:")
 		let filtered = entityArr.filter({
 			(e:EntryEntity?) -> (Bool) in
@@ -142,19 +101,10 @@ public class EntryEntity: NSManagedObject, Codable {
 //				print("EntryEntity/ArrToEntryArr/filter: e is nil")
 				return false
 			} else {
-//				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
-//				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
 				self.realize(ee: e!)
 				print(e!)
-//				let eOpt = Entry(entryEntity: e!)
-//				guard let e = eOpt else {
-//					print ("EntryEntity/toString: e is nil")
-//					return false
-//				}
-//				print("\(e)\nid:\(e.id)\ntime:\(e.time.description)")
 				return true
 			}
-//			return e == nil ? false : true
 		})
 //		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
 		if (filtered.count == 0){
@@ -166,11 +116,10 @@ public class EntryEntity: NSManagedObject, Codable {
 //				print( EntryEntity.toString(ee: e!) )
 				let e = Entry(entryEntity: ee!)
 				guard let finalEntry = e else {
-					return Entry()
+					return Entry() // <------------------ This is maybe ERROR TODO:
 				}
 				return finalEntry
 			})
 		}
-		print()
 	}
 }
