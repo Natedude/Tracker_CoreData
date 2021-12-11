@@ -141,6 +141,13 @@ public class EntryEntity: NSManagedObject, Codable {
 	public static func eeArr2eArr(eeArr: [EntryEntity]) -> [Entry]{
 //		print("EntryEntity/eeArr2eArr:")
 		let len = eeArr.count
+		// checking len solves the
+		// Fatal error cannot create Range
+		// in case CoreData has no entries
+		if(len == 0){
+			print("eeArr2eArr: input eeArr EMPTY")
+			return []
+		}
 		var eArr: [Entry] = []
 		//		print("len=\(len)")
 		for i in 0...(len-1) {
