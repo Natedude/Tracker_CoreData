@@ -13,17 +13,31 @@ import UIKit
 import CoreData
 import CoreDataManager
 
-class TrackerVC: UIViewController {
-	private let cdm = CoreDataManager.sharedInstance
-	private let cds = CoreDataStore()
-	let textViewStart = "Entries:\n"
-	let format = DateFormatter()
+class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 	
+	// MARK: - CoreDataManager
+	private let cdm = CoreDataManager.sharedInstance
+//	private let cds = CoreDataStore()
+	
+	// MARK: - Table View
+	@IBOutlet weak var tableView: UITableView!
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		<#code#>
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		<#code#>
+	}
+	
+	// MARK: - Nav Controller
 	@IBAction func addEntryEntity(_ sender: Any) {
 		print("TrackerVC/addEntryButtonPress:")
 		self.insertNewEntry(sender: self)
 	}
 	
+	// MARK: - Tracker
+//	let format = DateFormatter()
 	var entries: [Entry] = []
 	var substances: [Substance] = []
 	
@@ -31,7 +45,7 @@ class TrackerVC: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
 		
-		format.dateFormat = "h:mma"
+//		format.dateFormat = "h:mma"
 //		self.refreshEntries()
 //		self.deleteAllEntries()
 		self.fetchEntries()
@@ -39,9 +53,9 @@ class TrackerVC: UIViewController {
 //		self.printEntries()
 	}
 	
-	func getCtx() -> NSManagedObjectContext{
-			return CoreDataManager.sharedInstance.mainContext
-	}
+//	func getCtx() -> NSManagedObjectContext{
+//			return CoreDataManager.sharedInstance.mainContext
+//	}
 	
 //	func refreshEntries(){
 //		self.fetchEntries()
