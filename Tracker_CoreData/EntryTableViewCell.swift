@@ -9,13 +9,14 @@
 import Foundation
 import UIKit
 
+// (CocoaCasts)
 class EntryTableViewCell: UITableViewCell {
 	// MARK: - Properties
 	static let reuseIdentifier = "EntryCell"
 	
 	// MARK: -
-	@IBOutlet var timeLabel: UILabel!
-	@IBOutlet var substanceLabel: UILabel!
+	@IBOutlet weak var timeLabel: UILabel!
+	@IBOutlet weak var substanceLabel: UILabel!
 	
 	// MARK: - Initialization
 	override func awakeFromNib() {

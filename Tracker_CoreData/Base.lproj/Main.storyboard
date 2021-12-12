@@ -54,6 +54,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.2470588235" green="0.2470588235" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="substanceLabel" destination="HvA-mB-zqM" id="A8v-fh-ycJ"/>
+                                            <outlet property="timeLabel" destination="oZr-q1-tii" id="qa5-L0-IQM"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

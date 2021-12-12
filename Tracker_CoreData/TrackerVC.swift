@@ -3,10 +3,13 @@
 //  Created by Nathan Hildum on 11/24/21.
 //  Copyright © 2021 Nathan Hildum. All rights reserved.
 /*
-* Inspired by:
+*** Parenthetical Citations look like '(Source)' in comment above code ***
+* Sources:
 * - Included CoreDataManager Cocoapod
 * - Example app in the CoreDataManager repo
 *   - https://github.com/taaviteska/CoreDataManager
+* - Populating Table View with NSFetchedResultsController by Bart Jacobs on (CocoaCasts)
+*   - https://cocoacasts.com/populate-a-table-view-with-nsfetchedresultscontroller-and-swift-3
 */
 
 import UIKit
@@ -20,14 +23,43 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 //	private let cds = CoreDataStore()
 	
 	// MARK: - Table View
+//	private let persistentContainer = NSPersistentContainer(name: "Entries") //(CocoaCasts)
 	@IBOutlet weak var tableView: UITableView!
 	
+	// (CocoaCasts)
+//	fileprivate lazy var fetchedResultsController: NSFetchedResultsController<EntryEntity> = {
+//		// Create Fetch Request
+//		let fetchRequest: NSFetchRequest<EntryEntity> = EntryEntity.fetchRequest()
+//
+//		// Configure Fetch Request
+//		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "time", ascending: true)]
+//
+//		// Create Fetched Results Controller
+//		let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+//
+//		// Configure Fetched Results Controller
+//		fetchedResultsController.delegate = self
+//
+//		return fetchedResultsController
+//	}()
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		<#code#>
+		self.entries.count
 	}
 	
+	//(CocoaCasts)
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		<#code#>
+		
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.reuseIdentifier, for: indexPath) as? EntryTableViewCell else {
+			fatalError("Unexpected Index Path")
+		}
+		
+		let entry = self.entries[indexPath.row]
+	 
+		cell.timeLabel.text = entry.time.description
+		cell.substanceLabel.text = entry.substance.name
+		
+		return cell
 	}
 	
 	// MARK: - Nav Controller
@@ -37,21 +69,33 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 	}
 	
 	// MARK: - Tracker
-//	let format = DateFormatter()
-	var entries: [Entry] = []
+	let format = DateFormatter()
 	var substances: [Substance] = []
+	var entries:[Entry] = []
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
+		// (CocoaCasts)
+//		self.persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+//			if let error = error {
+//				print("Unable to Load Persistent Store")
+//				print("\(error), \(error.localizedDescription)")
+//				
+//			} else {
+//				self.showOrHideTable()
+//			}
+//		}
 		
-//		format.dateFormat = "h:mma"
+		format.dateFormat = "h:mma"
 //		self.refreshEntries()
 //		self.deleteAllEntries()
 		self.fetchEntries()
 		// fetchSubstances
 //		self.printEntries()
 	}
+	
+	
 	
 //	func getCtx() -> NSManagedObjectContext{
 //			return CoreDataManager.sharedInstance.mainContext
@@ -136,6 +180,34 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		print("------------------------------------END printEntries\n")
 	}
 	
+	// taken partly from answer by (Frankie) https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message
+	func showOrHideTable(){
+		if self.entries.count == 0 {
+			self.tableView.setEmptyMessage("No Entries")
+		} else {
+			self.tableView.restore()
+		}
+	}
 
 }
 
+// (Frankie)
+extension UITableView {
+	func setEmptyMessage(_ message: String) {
+		let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+		messageLabel.text = message
+		messageLabel.textColor = .black
+		messageLabel.numberOfLines = 0
+		messageLabel.textAlignment = .center
+		messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+		messageLabel.sizeToFit()
+		
+		self.backgroundView = messageLabel
+		self.separatorStyle = .none
+	}
+	
+	func restore() {
+		self.backgroundView = nil
+		self.separatorStyle = .singleLine
+	}
+}
