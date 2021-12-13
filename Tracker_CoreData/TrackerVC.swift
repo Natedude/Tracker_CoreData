@@ -10,6 +10,7 @@
 *   - https://github.com/taaviteska/CoreDataManager
 * - Populating Table View with NSFetchedResultsController by Bart Jacobs on (CocoaCasts)
 *   - https://cocoacasts.com/populate-a-table-view-with-nsfetchedresultscontroller-and-swift-3
+* -- maybe don't use that or else too much proj will be adapted from there
 */
 
 import UIKit
@@ -55,9 +56,18 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		}
 		
 		let entry = self.entries[indexPath.row]
+//		entry.printEntry()
+//		print(entry)
+		let timeStr = format.string(from: entry.time)
+//		print(timeStr)
+//		print(cell)
 	 
-		cell.timeLabel.text = entry.time.description
-		cell.substanceLabel.text = entry.substance.name
+		guard let timeLabel = cell.timeLabel, let substanceLabel = cell.substanceLabel else {
+			print("tableView: ERROR label is nil")
+			return cell
+		}
+		timeLabel.text = timeStr
+		substanceLabel.text = entry.substance.name
 		
 		return cell
 	}
@@ -76,17 +86,7 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-		// (CocoaCasts)
-//		self.persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
-//			if let error = error {
-//				print("Unable to Load Persistent Store")
-//				print("\(error), \(error.localizedDescription)")
-//				
-//			} else {
-//				self.showOrHideTable()
-//			}
-//		}
-		
+
 		format.dateFormat = "h:mma"
 //		self.refreshEntries()
 //		self.deleteAllEntries()
@@ -127,6 +127,7 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 
 		//printing
 		self.printEntries()
+		self.tableView.reloadData()
 		print("------------------------------------END fetchEntries\n")
 	}
 	

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //		window = UIWindow()
 //		window?.makeKeyAndVisible()
 //		window?.rootViewController = ViewController()
-//		
+		print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
 		return true
 	}
 

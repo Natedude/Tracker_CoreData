@@ -41,7 +41,7 @@ public struct Entry {
 			let time = entryEntity.value(forKey: "time") as? Date
 //			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
 			else {
-				print("Entry()/init: !!! ERROR return nil instead of Entry instance !!!")
+				print("Entry/init(ee): !!! ERROR return nil instead of Entry instance !!!")
 				return nil
 			}
 		self.id = id
@@ -66,6 +66,10 @@ public struct Entry {
 		let s = Substance()
 		let sMO = s.managedObject
 		self.init(id: -1, time: Date(), sE: sMO)
+	}
+	
+	func printEntry(){
+		Swift.print(EntryEntity.toString(ee: managedObject))
 	}
 	
 //	public static func printArr(eArr: [Entry]){
