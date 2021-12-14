@@ -19,66 +19,10 @@ import CoreDataManager
 
 class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsControllerDelegate {
 	
-	// MARK: - CoreDataManager
+		// MARK: - Tracker
 	private let cdm = CoreDataManager.sharedInstance
 //	private let cds = CoreDataStore()
-	
-	// MARK: - Table View
-//	private let persistentContainer = NSPersistentContainer(name: "Entries") //(CocoaCasts)
 	@IBOutlet weak var tableView: UITableView!
-	
-	// (CocoaCasts)
-//	fileprivate lazy var fetchedResultsController: NSFetchedResultsController<EntryEntity> = {
-//		// Create Fetch Request
-//		let fetchRequest: NSFetchRequest<EntryEntity> = EntryEntity.fetchRequest()
-//
-//		// Configure Fetch Request
-//		fetchRequest.sortDescriptors = [NSSortDescriptor(key: "time", ascending: true)]
-//
-//		// Create Fetched Results Controller
-//		let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
-//
-//		// Configure Fetched Results Controller
-//		fetchedResultsController.delegate = self
-//
-//		return fetchedResultsController
-//	}()
-	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		self.entries.count
-	}
-	
-	//(CocoaCasts)
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.reuseIdentifier, for: indexPath) as? EntryTableViewCell else {
-			fatalError("Unexpected Index Path")
-		}
-		
-		let entry = self.entries[indexPath.row]
-//		entry.printEntry()
-//		print(entry)
-		let timeStr = format.string(from: entry.time)
-//		print(timeStr)
-//		print(cell)
-	 
-		guard let timeLabel = cell.timeLabel, let substanceLabel = cell.substanceLabel else {
-			print("tableView: ERROR label is nil")
-			return cell
-		}
-		timeLabel.text = timeStr
-		substanceLabel.text = entry.substance.name
-		
-		return cell
-	}
-	
-	// MARK: - Nav Controller
-	@IBAction func addEntryEntity(_ sender: Any) {
-		print("TrackerVC/addEntryButtonPress:")
-		self.insertNewEntry(sender: self)
-	}
-	
-	// MARK: - Tracker
 	let format = DateFormatter()
 	var substances: [Substance] = []
 	var entries:[Entry] = []
@@ -89,22 +33,33 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 
 		format.dateFormat = "h:mma"
 //		self.refreshEntries()
-//		self.deleteAllEntries()
+		self.deleteAllEntries()
+		self.deleteAllSubstances()
+		self.addTestSub()
 		self.fetchEntries()
-		// fetchSubstances
+		self.fetchSubstances()
+		self.showOrHideTable()
 //		self.printEntries()
 	}
 	
-	
-	
-//	func getCtx() -> NSManagedObjectContext{
-//			return CoreDataManager.sharedInstance.mainContext
-//	}
-	
-//	func refreshEntries(){
-//		self.fetchEntries()
-//		self.displayEntries()
-//	}
+	func addTestSub(){
+//		let testS = Substance(name: "Test")
+		let ctx = self.cdm.mainContext
+		let seArr: [SubstanceEntity] = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
+		let testExist = seArr.filter{se in
+			return se.name == "Test"
+		}
+		print("VC/addTestSub: subs with name 'Test' = \(testExist.count)")
+		if(testExist.count == 0){
+			_ = Substance(name: "Test")
+			do {
+				try ctx.saveIfChanged()
+				print("addTestSub: SUCCESS")
+			} catch {
+				print("addTestSub() ERROR: \(error)")
+			}
+		}
+	}
 	
 	func deleteAllEntries(){
 		let ctx = self.cdm.mainContext
@@ -116,6 +71,16 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		}
 	}
 	
+	func deleteAllSubstances(){
+		let ctx = self.cdm.mainContext
+		_ = ctx.managerFor(SubstanceEntity.self).delete()
+		do{
+			try ctx.saveIfChanged()
+		} catch {
+			print("TrackerVC/deleteAllSubstances: ctx.saveIfChanged() Error: \(error)")
+		}
+	}
+	
 	// Sync db -> self.entries
 	// also print for now so I can see what EntryEntity.ArrToEntryArr prints
 	// and then what this prints
@@ -124,20 +89,29 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		let ctx = self.cdm.mainContext
 		let eeArr: [EntryEntity] = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
 		self.entries = EntryEntity.eeArr2eArr(eeArr: eeArr)
-
+		
 		//printing
 		self.printEntries()
 		self.tableView.reloadData()
+		self.showOrHideTable()
 		print("------------------------------------END fetchEntries\n")
 	}
 	
-//	func fetchSubstances() {
-//		let ctx = self.cdm.mainContext
-//		let substanceEntities = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
-//		self.substances = SubstanceEntity.ArrToSubstanceArr(entityArr: substanceEntities)
-//		print(
-//			"fetchSubstances: typeof substances = \(type(of: self.substances))"
-//		)
+	func fetchSubstances() {
+		print("TrackerVC/fetchSubstances:")
+		let ctx = self.cdm.mainContext
+		let seArr: [SubstanceEntity] = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
+		self.substances = SubstanceEntity.seArr2sArr(seArr: seArr)
+		
+		//printing
+		self.printSubstances()
+		//		self.tableView.reloadData()
+		print("------------------------------------END fetchSubstances\n")
+	}
+	
+	// test if substance exists, if so returns already existing
+//	func substanceCheck(s: Substance) -> Substance {
+//
 //	}
 	
 	// Create new row in Entry table
@@ -151,15 +125,29 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
-		let e = Entry(id: (lastEntryID + 1), time: Date(), sE: Substance().managedObject)
-//		e.time = Date()
-//		print("Created new Date: \(e.time)")
+		let e = Entry(id: (lastEntryID + 1), time: Date(), s: self.substances[0])
+		self.substances[0].managedObject.addToEntries(e.managedObject)
+		//		e.time = Date()
+		//		print("Created new Date: \(e.time)")
+//		guard let sName = e.substance.name else {
+//			print("insertNewEntry: ERROR e.substance.name is nil")
+//			do {
+//				try context.saveIfChanged()
+//				print("insertNewEntry: SUCCESS")
+//			} catch {
+//				print("insertNewEntry() ERROR: \(error)")
+//			}
+//			print("------------------------------------END insertNewEntry\n")
+//			self.fetchEntries()
+//			return
+//		}
+		print("Added entry with Substance: \(e.substance.name)")
 		print(EntryEntity.toString(ee: e.managedObject))
-	 /* printing id=1, correct time, but substance is NOT giving back
+		/* printing id=1, correct time, but substance is NOT giving back
 		Fake_Substance from Substance() constructor... maybe remove Substance?
-	  */
-//		e.id = Int64(lastEntryID + 1)
-//		context.insert(e)
+		*/
+		//		e.id = Int64(lastEntryID + 1)
+		//		context.insert(e)
 		do {
 			try context.saveIfChanged()
 			print("insertNewEntry: SUCCESS")
@@ -168,7 +156,7 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		}
 		print("------------------------------------END insertNewEntry\n")
 		self.fetchEntries()
-//		self.printEntries()
+		//		self.printEntries()
 	}
 	
 	func printEntries(){
@@ -181,6 +169,16 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		print("------------------------------------END printEntries\n")
 	}
 	
+	func printSubstances(){
+		print("TrackerVC/printSubstances:")
+		_ = self.substances.map({
+			(s: Substance) -> (Substance) in
+			print(SubstanceEntity.toString(se: s.managedObject))
+			return s
+		})
+		print("------------------------------------END printEntries\n")
+	}
+	
 	// taken partly from answer by (Frankie) https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message
 	func showOrHideTable(){
 		if self.entries.count == 0 {
@@ -188,6 +186,43 @@ class TrackerVC: UIViewController, UITableViewDataSource, NSFetchedResultsContro
 		} else {
 			self.tableView.restore()
 		}
+	}
+	
+	// MARK: - Table View
+	
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		self.entries.count
+	}
+	
+	//(CocoaCasts)
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: EntryTableViewCell.reuseIdentifier, for: indexPath) as? EntryTableViewCell else {
+			fatalError("Unexpected Index Path")
+		}
+		
+		let entry = self.entries[indexPath.row]
+		//		entry.printEntry()
+		//		print(entry)
+		let timeStr = format.string(from: entry.time)
+		//		print(timeStr)
+		//		print(cell)
+		
+		guard let timeLabel = cell.timeLabel, let substanceLabel = cell.substanceLabel else {
+			print("tableView: ERROR label is nil")
+			return cell
+		}
+		timeLabel.text = timeStr
+		print("tableView: entry.substance.name=\(entry.substance.name)")
+		substanceLabel.text = entry.substance.name
+		
+		return cell
+	}
+	
+	// MARK: - Nav Controller
+	@IBAction func addEntryEntity(_ sender: Any) {
+		print("TrackerVC/addEntryButtonPress:")
+		self.insertNewEntry(sender: self)
 	}
 
 }
@@ -211,4 +246,7 @@ extension UITableView {
 		self.backgroundView = nil
 		self.separatorStyle = .singleLine
 	}
+	
+	
 }
+

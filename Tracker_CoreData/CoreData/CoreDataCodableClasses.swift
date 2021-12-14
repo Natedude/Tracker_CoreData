@@ -30,7 +30,7 @@ extension CodingUserInfoKey {
 public struct Entry {
 	var id: Int64
 	var time: Date
-	var substance: SubstanceEntity
+	var substance: Substance
 	var managedObject: EntryEntity
 	
 	//turn MO into struct
@@ -38,35 +38,41 @@ public struct Entry {
 //		print("EntryEntity/Entry()/init:")
 		guard
 			let id = entryEntity.value(forKey: "id") as? Int64,
-			let time = entryEntity.value(forKey: "time") as? Date
-//			let substance = entryEntity.value(forKey: "substance") as? SubstanceEntity
+			let time = entryEntity.value(forKey: "time") as? Date,
+			let sE = entryEntity.value(forKey: "substance") as? SubstanceEntity
 			else {
-				print("Entry/init(ee): !!! ERROR return nil instead of Entry instance !!!")
+				print("Substance/init(sE): !!! ERROR return nil instead of SubstanceEntity instance !!!")
 				return nil
 			}
 		self.id = id
 		self.time = time
-		self.substance = Substance().managedObject
+		guard let s = Substance(substanceEntity: sE) else {
+			print("Substance/init(sE): !!! ERROR return nil instead of Substance instance !!!")
+			return nil
+		}
+		self.substance = s//Substance().managedObject
 		self.managedObject = entryEntity
+		self.managedObject.substance = sE
 //		print(EntryEntity.toString(ee: entryEntity) + "Entry(ee)/init SUCCESS")
 //		print("------------------------------------END init\n")
 	}
 	
 	// create new MO by creating a struct
-	init(id: Int64, time: Date, sE: SubstanceEntity) {
+	init(id: Int64, time: Date, s: Substance) {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
 		self.managedObject.id = id
 		self.managedObject.time = time
+		self.managedObject.substance = s.managedObject
 		self.id = id
 		self.time = time
-		self.substance = sE
+		self.substance = s
 	}
 	
-	init(){
-		let s = Substance()
-		let sMO = s.managedObject
-		self.init(id: -1, time: Date(), sE: sMO)
-	}
+//	init(){
+//		let s = Substance()
+//		let sMO = s.managedObject
+//		self.init(id: -1, time: Date(), sE: sMO)
+//	}
 	
 	func printEntry(){
 		Swift.print(EntryEntity.toString(ee: managedObject))
@@ -132,7 +138,8 @@ public class EntryEntity: NSManagedObject, Codable {
 	public static func toString(ee: EntryEntity) -> String{
 //		print("EntryEntity/toString:")
 		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
-		return " ~  Entry: id=\(ee.id), time=\(timeStr)    ~~~~toString"
+		
+		return " ~  Entry: id=\(ee.id), time=\(timeStr), sub=\(ee.substance?.name ?? "nil")    ~~~~toString"
 	}
 	
 	// access fields so printing ee does not show <fault> and instead shows values
@@ -177,45 +184,8 @@ public class EntryEntity: NSManagedObject, Codable {
 		}
 		//		print("------------------------------------END eeArr2eArr\n")
 	}
-//	public static func ArrToEntryArr(entityArr: [EntryEntity?]) -> [Entry]{
-//
-//		print("EntryEntity/ArrToEntryArr:")
-//		let filtered = entityArr.filter({
-//			(e:EntryEntity?) -> (Bool) in
-//			if(e == nil){
-////				print("EntryEntity/ArrToEntryArr/filter: e is nil")
-//				return false
-//			} else {
-////				print("EntryEntity/ArrToEntryArr/filter: e is non-nil")
-////				print("\(e!)\nid: \(e!.id)\ntime: \(e!.time!.description)")
-////				self.realize(ee: e!)
-//				print(EntryEntity.toString(ee: e!))
-////				print(e!)
-////				print("\(e)\nid:\(e.id)\ntime:\(e.time.description)")
-//				return true
-//			}
-//		})
-////		print("EntryEntity/ArrToEntryArr/filtered: \(filtered)")
-//		if (filtered.count == 0){
-//			print("------------------------------------END ArrToEntryArr\n")
-//			return []
-//		} else {
-//			// get array of unwrapped Es from EEs
-//			return filtered.map({
-//				(ee:EntryEntity?) -> Entry in  // ! used bc checked if nil in filter
-//				print( EntryEntity.toString(ee: ee!) )
-//
-//				let e = Entry(entryEntity: ee!) //this is coming back nil ERROR
-//
-//				guard let finalEntry = e else {
-//					print("EntryEntity/ArrToEntryArr/map: ERROR returning Fake Entry")
-//					print("------------------------------------END ArrToEntryArr\n")
-//					return Entry()
-//				}
-//				print("------------------------------------END ArrToEntryArr\n")
-//				return finalEntry
-//			})
-//		}
+	
+//	public static eeOptArr2eeArr(eeOptArr: [EntryEntity?]) -> [EntryEntity]{
 //
 //	}
 }
@@ -223,8 +193,10 @@ public class EntryEntity: NSManagedObject, Codable {
 ///////////////////////////////////////////////////////////////////////////////
 /////////////////// SUBSTANCE /////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
+// NSSet(array: [Any])
 
 public struct Substance {
+	static var count = 0
 	var name: String
 	var entries: [Entry]
 	var managedObject: SubstanceEntity
@@ -233,14 +205,34 @@ public struct Substance {
 	init?(substanceEntity: SubstanceEntity) {
 		guard
 			let name = substanceEntity.value(forKey: "name") as? String
-//			let entries = substanceEntity.value(forKey: "entries") as? NSSet
+//			let entries = substanceEntity.value(forKey: "entries") as? Set<EntryEntity>
 			else {
 				return nil
 		}
 		self.name = name
-//		self.entries = substanceEntity.entriesArray //TODO:
+//		Substance.count += 1
+//		print("Substance/init(sE): Substance.count=\(Substance.count) entries=\n\(entries)")
 		self.entries = []
+//		print("Substance/init(se): self.entries = \(self.entries)")
+//		self.entries = EntryEntity.eeArr2eArr(eeArr: eeArr) //TODO:
+//		self.entries = []
 		self.managedObject = substanceEntity
+	}
+	
+	func realizeEntries(){
+//		guard
+//			var entries = managedObject.value(forKey: "entries") as? Set<EntryEntity>
+//			else {
+//				return
+//		}
+//		let eeOptArr = entries.map{ee in
+//			return Entry(entryEntity: ee)
+//		}
+//		entries = Array(eeOptArr.filter{ eOpt in
+//			return eOpt != nil
+//		}.map{ eOpt in
+//			return eOpt!
+//		}) as [Entry]
 	}
 	
 	// create new MO by creating a struct
@@ -254,6 +246,7 @@ public struct Substance {
 	
 	init(){
 		self.init(name: "Fake_Substance")
+		print("Substance/init(): name = 'Fake_Substance'")
 	}
 }
 
@@ -273,36 +266,58 @@ public class SubstanceEntity: NSManagedObject, Codable {
 
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		self.name = try container.decode(String.self, forKey: .name)
-		self.entries = try container.decode(Set<EntryEntity>.self, forKey: .entries) as NSSet
+		self.entries = try container.decode(Set<EntryEntity>.self, forKey: .entries) as Set<EntryEntity>
 	}
 
 	public func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(name, forKey: .name)
-		try container.encode(entries as? Set<EntryEntity>, forKey: .entries)
+		try container.encode(entries, forKey: .entries)
 	}
-
-//	public var entriesArray: [Entry] {
-//		let set = entries as? Set<EntryEntity> ?? []
-//		let sorted = set.sorted {
-//			$0.id < $1.id
-//			//might want to switch to a > so that more recent ids come first
-//		}
-//		return EntryEntity.ArrToEntryArr(entityArr: sorted)
-//	}
 	
-	public static func ArrToSubstanceArr(entityArr: [SubstanceEntity]) -> [Substance]{
-		let filtered = entityArr.filter({
-			(s:SubstanceEntity?) -> (Bool) in
-			return s == nil ? false : true
-		})
-		if (filtered.count == 0){
+	// convert [EntryEntity] to [Entry] to more easily manage structs
+	public static func seArr2sArr(seArr: [SubstanceEntity]) -> [Substance]{
+		print("SubstanceEntity/seArr2sArr:")
+		let len = seArr.count
+		// checking len solves the
+		// Fatal error cannot create Range
+		// in case CoreData has no entries
+		if(len == 0){
+			print("seArr2sArr: input seArr EMPTY")
 			return []
-		} else {
-			return filtered.map({
-				(s:SubstanceEntity) -> Substance in
-				return Substance(substanceEntity: s)! // checked if nil in filter
-			})
 		}
+		var sArr: [Substance] = []
+		//		print("len=\(len)")
+		for i in 0...(len-1) {
+			//			print(eeArr[i])
+			let eOpt = Substance(substanceEntity: seArr[i]) //not actually calling the constructor?
+			guard let s = eOpt else {
+				print("""
+					SubstanceEntity/seArr2sArr: !!! ERROR i = \(i)
+					&& `guard let s = eOpt == NIL -> true` !!!
+					""")
+				break;
+			}
+			sArr.append(s)
+		}
+		if sArr.count > 0 {
+			print("eeArr2eArr: SUCCESS - type(eArr) = \(type(of: sArr))")
+			print("------------------------------------END seArr2sArr\n")
+			return sArr
+		} else {
+			// failure
+			print("eeArr2eArr: FAILURE")
+			print("------------------------------------END seArr2sArr\n")
+			return []
+		}
+	}
+	
+	public static func toString(se: SubstanceEntity) -> String{
+		print("SubstanceEntity/toString:")
+		guard let name = se.name else {
+			print("ERROR se.name is nil")
+			return "No Name"
+		}
+		return " ~  Substance: name=\(name)    ~~~~toString"
 	}
 }

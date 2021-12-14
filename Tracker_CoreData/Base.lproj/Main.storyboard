@@ -45,11 +45,11 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.24705882352941178" green="0.24705882352941178" blue="0.24705882352941178" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="HvA-mB-zqM" secondAttribute="trailing" constant="-405" id="4nl-3l-cpX"/>
                                                 <constraint firstAttribute="bottom" secondItem="HvA-mB-zqM" secondAttribute="bottom" constant="11" id="FW0-K4-SfO"/>
                                                 <constraint firstAttribute="bottom" secondItem="oZr-q1-tii" secondAttribute="bottom" constant="11" id="N4F-nR-LCo"/>
                                                 <constraint firstItem="oZr-q1-tii" firstAttribute="leading" secondItem="e25-6c-zro" secondAttribute="leading" constant="11" id="dSF-Fg-s7Y"/>
                                                 <constraint firstItem="oZr-q1-tii" firstAttribute="top" secondItem="e25-6c-zro" secondAttribute="top" constant="12" id="dmN-EY-gbo"/>
+                                                <constraint firstItem="HvA-mB-zqM" firstAttribute="leading" secondItem="e25-6c-zro" secondAttribute="leading" constant="323.5" id="eOx-Mi-vc9"/>
                                                 <constraint firstItem="HvA-mB-zqM" firstAttribute="top" secondItem="e25-6c-zro" secondAttribute="top" constant="12" id="wPV-XE-O3m"/>
                                             </constraints>
                                         </tableViewCellContentView>

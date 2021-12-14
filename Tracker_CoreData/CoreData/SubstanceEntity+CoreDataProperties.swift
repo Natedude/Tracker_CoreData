@@ -18,7 +18,7 @@ extension SubstanceEntity {
     }
 
     @NSManaged public var name: String?
-    @NSManaged public var entries: NSSet?
+    @NSManaged public var entries: Set<EntryEntity>?
 
 }
 
