@@ -16,10 +16,10 @@
 		643973312761FE1C00177717 /* EntryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */; };
 		643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973322762022200177717 /* CoreDataCodableClasses.swift */; };
 		643973382762067900177717 /* SubstanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */; };
+		64548C312768946000C1553F /* Pods_Tracker_CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */; };
 		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
 		64B407242764724500C6BD75 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B407232764724500C6BD75 /* EntryTableViewCell.swift */; };
 		64C608142761EEF800F8163A /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C608132761EEF800F8163A /* CoreDataStore.swift */; };
-		B7AD8E6E451E24529F3852A0 /* Pods_Tracker_CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE34D12351C927270241AE32 /* Pods_Tracker_CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,11 +35,11 @@
 		6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		643973322762022200177717 /* CoreDataCodableClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataCodableClasses.swift; sourceTree = "<group>"; };
 		643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubstanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tracker_CoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B407232764724500C6BD75 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		64C608132761EEF800F8163A /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		A2FDC7E84BB66FC001DFC8DD /* Pods-Tracker_CoreData.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.release.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.release.xcconfig"; sourceTree = "<group>"; };
 		AAE6FE3C90DDE58F62087EC2 /* Pods-Tracker_CoreData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.debug.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.debug.xcconfig"; sourceTree = "<group>"; };
-		BE34D12351C927270241AE32 /* Pods_Tracker_CoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tracker_CoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B7AD8E6E451E24529F3852A0 /* Pods_Tracker_CoreData.framework in Frameworks */,
+				64548C312768946000C1553F /* Pods_Tracker_CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +112,7 @@
 		CFA6BF42521D205787AB2699 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BE34D12351C927270241AE32 /* Pods_Tracker_CoreData.framework */,
+				64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
