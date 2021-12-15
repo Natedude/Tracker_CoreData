@@ -12,16 +12,44 @@ import CoreDataManager
 
 class SubstanceManager {
 	
+	// singleton pattern taken from https://krakendev.io/blog/the-right-way-to-write-a-singleton
 	static let sharedInstance = SubstanceManager()
 	private let cdm = CoreDataManager.sharedInstance
-//	private let em: EntryManager// = EntryManager.sharedInstance
 	var substances: [Substance] = []
 	public static let format = DateFormatter()
-	
 	
 	private init(){
 		self.fetchSubstances()
 		addTestSub()
+	}
+	
+	func doesNameExist(name: String) -> Bool {
+		let matches = self.substances.filter{ s in
+			s.name == name
+		}
+		return matches.count > 0
+	}
+	
+	func insertNewSub(name: String){
+		print("SubstanceManager/insertNewSub:")
+		if(!doesNameExist(name: name)){
+			let context = self.cdm.mainContext
+			let substance = Substance(name: name)
+			
+			print("Added Sub with name: \(substance.name)")
+			print(SubstanceEntity.toString(se: substance.managedObject))
+			do {
+				try context.saveIfChanged()
+				print("insertNewSub: SUCCESS")
+			} catch {
+				print("insertNewSub() ERROR: \(error)")
+			}
+			self.fetchSubstances()
+		} else {
+			print("Substance with name=\(name) already exists")
+		}
+		print("------------------------------------END insertNewSub\n")
+		//		self.printEntries()
 	}
 	
 	func addTestSub(){
@@ -31,7 +59,7 @@ class SubstanceManager {
 		let testExist = seArr.filter{se in
 			return se.name == "Test"
 		}
-		print("VC/addTestSub: subs with name 'Test' = \(testExist.count)")
+		print("SubstanceManager/addTestSub: subs with name 'Test' = \(testExist.count)")
 		if(testExist.count == 0){
 			_ = Substance(name: "Test")
 			do {
@@ -45,7 +73,7 @@ class SubstanceManager {
 	
 	// Sync db -> self.substances
 	func fetchSubstances() {
-		print("TrackerVC/fetchSubstances:")
+		print("SubstanceManager/fetchSubstances:")
 		let ctx = self.cdm.mainContext
 		let seArr: [SubstanceEntity] = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
 		self.substances = SubstanceEntity.seArr2sArr(seArr: seArr)
@@ -53,17 +81,17 @@ class SubstanceManager {
 		//printing
 		self.printSubstances()
 		//		self.tableView.reloadData()
-		print("------------------------------------END fetchSubstances\n")
+//		print("------------------------------------END fetchSubstances\n")
 	}
 	
 	func printSubstances(){
-		print("TrackerVC/printSubstances:")
+		print("SubstanceManager/printSubstances:")
 		_ = self.substances.map({
 			(s: Substance) -> (Substance) in
 			print(SubstanceEntity.toString(se: s.managedObject))
 			return s
 		})
-		print("------------------------------------END printEntries\n")
+//		print("------------------------------------END printEntries\n")
 	}
 	
 	func deleteAllSubstances(){
@@ -72,7 +100,7 @@ class SubstanceManager {
 		do{
 			try ctx.saveIfChanged()
 		} catch {
-			print("TrackerVC/deleteAllSubstances: ctx.saveIfChanged() Error: \(error)")
+			print("SubstanceManager/deleteAllSubstances: ctx.saveIfChanged() Error: \(error)")
 		}
 	}
 	

@@ -17,21 +17,48 @@ import CoreDataManager
 - then move onto add entry vc
 */
 class SubstanceVC: UIViewController, UITableViewDataSource {
-	let sm = SubstanceManager.sharedInstance
+	// MARK: - Tracker
+	private let cdm = CoreDataManager.sharedInstance
+	private let sm = SubstanceManager.sharedInstance
+	@IBOutlet weak var tableView: UITableView!
+	
+	
+	
+	@IBAction func addButtonPress(_ sender: Any) {
+		// TextField alert taken from https://www.youtube.com/watch?v=xLWfJIYg2PM
+		let alert = UIAlertController(
+			title: "Add New Substance",
+			message: "Type in the name of the new substance you want to add:",
+			preferredStyle: .alert)
+		
+		alert.addTextField{field in
+			field.placeholder = "Name"
+			field.returnKeyType = .continue
+			field.keyboardType = .default
+		}
+		
+		alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+		alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
+			guard let fields = alert.textFields else {
+				return
+			}
+			let nameField = fields[0]
+			guard let name = nameField.text, !name.isEmpty else {
+				print("Invalid entry")
+				return
+			}
+			self.sm.insertNewSub(name: name)
+			self.tableView.reloadData()
+		}))
+		self.present(alert, animated: true)
+//		print(alert.getStatus())
+	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-		
-		//		format.dateFormat = "h:mma"
-		//		self.refreshEntries()
-		//		self.deleteAllEntries()
-		//		self.deleteAllSubstances()
-		//		self.addTestSub()
-		//		self.fetchEntries()
-		//		self.fetchSubstances()
+
 		self.showOrHideTable()
-		//		self.printEntries()
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,31 +69,18 @@ class SubstanceVC: UIViewController, UITableViewDataSource {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: SubstanceTableViewCell.reuseIdentifier, for: indexPath) as? SubstanceTableViewCell else {
 			fatalError("Unexpected Index Path")
 		}
-		
 		let s = self.sm.get(idx: indexPath.row)
-		//		entry.printEntry()
-		//		print(entry)
-//		let timeStr = format.string(from: entry.time)
-		//		print(timeStr)
-		//		print(cell)
 		
 		guard let substanceLabel = cell.substanceLabel else {
 			print("SubstanceVC/tableView: ERROR label is nil")
 			return cell
 		}
-//		timeLabel.text = timeStr
-//		print("tableView: entry.substance.name=\(entry.substance.name)")
 		substanceLabel.text = s.name
 		
 		return cell
 	}
 	
-	
-	// MARK: - Tracker
-	private let cdm = CoreDataManager.sharedInstance
-	var substances: [Substance] = []
-	@IBOutlet weak var tableView: UITableView!
-	
+	// taken partly from answer by (Frankie) https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message
 	func showOrHideTable(){
 		if self.sm.count() == 0 {
 			self.tableView.setEmptyMessage("No Substances")

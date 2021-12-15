@@ -29,17 +29,8 @@ class TrackerVC: UIViewController, UITableViewDataSource {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
 
-//		self.refreshEntries()
-//		self.deleteAllEntries()
-//		self.deleteAllSubstances()
-//		self.addTestSub()
-//		self.fetchEntries()
-//		self.fetchSubstances()
 		self.showOrHideTable()
-//		self.printEntries()
 	}
-	
-
 	
 	// taken partly from answer by (Frankie) https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message
 	func showOrHideTable(){

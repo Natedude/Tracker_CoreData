@@ -55,7 +55,11 @@
                         <viewLayoutGuide key="safeArea" id="4cC-Y9-vMB"/>
                     </view>
                     <navigationItem key="navigationItem" id="XCf-Oh-fnO">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FzT-Iw-lHZ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FzT-Iw-lHZ">
+                            <connections>
+                                <action selector="addButtonPress:" destination="USA-JF-Koy" id="0kg-5R-q8J"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="4dS-Gy-l4v" id="6sc-2t-4JL"/>

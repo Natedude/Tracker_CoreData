@@ -11,6 +11,7 @@ import CoreData
 import CoreDataManager
 
 class EntryManager {
+	// singleton pattern taken from https://krakendev.io/blog/the-right-way-to-write-a-singleton
 	static let sharedInstance = EntryManager()
 	static let format = DateFormatter()
 	private let cdm = CoreDataManager.sharedInstance
@@ -58,15 +59,11 @@ class EntryManager {
 	// also print for now so I can see what EntryEntity.ArrToEntryArr prints
 	// and then what this prints
 	func fetchEntries() {
-		//		print("TrackerVC/fetchEntries:")
+		print("EntryManager/fetchEntries:")
 		let ctx = self.cdm.mainContext
 		let eeArr: [EntryEntity] = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
 		self.entries = EntryEntity.eeArr2eArr(eeArr: eeArr)
-		
-		//printing
 		self.printEntries()
-		//		self.tableView.reloadData()
-		//		self.showOrHideTable()
 		//		print("------------------------------------END fetchEntries\n")
 	}
 	
@@ -77,7 +74,7 @@ class EntryManager {
 			print(EntryEntity.toString(ee: e.managedObject))
 			return e
 		})
-		print("------------------------------------END printEntries\n")
+//		print("------------------------------------END printEntries\n")
 	}
 	
 	func deleteAllEntries(){
