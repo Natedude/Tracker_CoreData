@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64181406276968CA00DAB54C /* EntryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64181405276968CA00DAB54C /* EntryManager.swift */; };
+		641814082769694B00DAB54C /* SubstanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641814072769694B00DAB54C /* SubstanceManager.swift */; };
 		6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64229409274E2BDD0002E523 /* AppDelegate.swift */; };
 		6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422940B274E2BDD0002E523 /* SceneDelegate.swift */; };
 		6422940E274E2BDD0002E523 /* TrackerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6422940D274E2BDD0002E523 /* TrackerVC.swift */; };
@@ -17,12 +19,16 @@
 		643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973322762022200177717 /* CoreDataCodableClasses.swift */; };
 		643973382762067900177717 /* SubstanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */; };
 		64548C312768946000C1553F /* Pods_Tracker_CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */; };
+		64548C332768967F00C1553F /* SubstancesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64548C322768967F00C1553F /* SubstancesVC.swift */; };
+		64548C3727689C8B00C1553F /* SubstanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64548C3627689C8B00C1553F /* SubstanceTableViewCell.swift */; };
 		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
 		64B407242764724500C6BD75 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B407232764724500C6BD75 /* EntryTableViewCell.swift */; };
 		64C608142761EEF800F8163A /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C608132761EEF800F8163A /* CoreDataStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		64181405276968CA00DAB54C /* EntryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryManager.swift; sourceTree = "<group>"; };
+		641814072769694B00DAB54C /* SubstanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceManager.swift; sourceTree = "<group>"; };
 		64229406274E2BDD0002E523 /* Tracker_CoreData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker_CoreData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64229409274E2BDD0002E523 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6422940B274E2BDD0002E523 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +42,8 @@
 		643973322762022200177717 /* CoreDataCodableClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataCodableClasses.swift; sourceTree = "<group>"; };
 		643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubstanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tracker_CoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64548C322768967F00C1553F /* SubstancesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstancesVC.swift; sourceTree = "<group>"; };
+		64548C3627689C8B00C1553F /* SubstanceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstanceTableViewCell.swift; sourceTree = "<group>"; };
 		64B407232764724500C6BD75 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		64C608132761EEF800F8163A /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		A2FDC7E84BB66FC001DFC8DD /* Pods-Tracker_CoreData.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.release.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.release.xcconfig"; sourceTree = "<group>"; };
@@ -85,8 +93,9 @@
 			isa = PBXGroup;
 			children = (
 				64814149274E2D1200639A0F /* CoreData */,
-				6422940D274E2BDD0002E523 /* TrackerVC.swift */,
+				64548C35276896A800C1553F /* ViewControllers */,
 				64B407232764724500C6BD75 /* EntryTableViewCell.swift */,
+				64548C3627689C8B00C1553F /* SubstanceTableViewCell.swift */,
 				64229409274E2BDD0002E523 /* AppDelegate.swift */,
 				6422940B274E2BDD0002E523 /* SceneDelegate.swift */,
 				6422940F274E2BDD0002E523 /* Main.storyboard */,
@@ -98,6 +107,15 @@
 			path = Tracker_CoreData;
 			sourceTree = "<group>";
 		};
+		64548C35276896A800C1553F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6422940D274E2BDD0002E523 /* TrackerVC.swift */,
+				64548C322768967F00C1553F /* SubstancesVC.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		64814149274E2D1200639A0F /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +123,8 @@
 				6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */,
 				64C608132761EEF800F8163A /* CoreDataStore.swift */,
 				643973322762022200177717 /* CoreDataCodableClasses.swift */,
+				64181405276968CA00DAB54C /* EntryManager.swift */,
+				641814072769694B00DAB54C /* SubstanceManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -232,13 +252,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64548C3727689C8B00C1553F /* SubstanceTableViewCell.swift in Sources */,
 				643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */,
 				6422940E274E2BDD0002E523 /* TrackerVC.swift in Sources */,
 				643973382762067900177717 /* SubstanceEntity+CoreDataProperties.swift in Sources */,
 				6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */,
 				643973312761FE1C00177717 /* EntryEntity+CoreDataProperties.swift in Sources */,
+				641814082769694B00DAB54C /* SubstanceManager.swift in Sources */,
+				64181406276968CA00DAB54C /* EntryManager.swift in Sources */,
 				6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */,
 				64B407242764724500C6BD75 /* EntryTableViewCell.swift in Sources */,
+				64548C332768967F00C1553F /* SubstancesVC.swift in Sources */,
 				6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */,
 				64C608142761EEF800F8163A /* CoreDataStore.swift in Sources */,
 			);

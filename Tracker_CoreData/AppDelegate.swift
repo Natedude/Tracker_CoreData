@@ -13,15 +13,14 @@ import CoreDataManager
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-	var window: UIWindow?
+//	var window: UIWindow?
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 		
 		CoreDataManager.sharedInstance.setupWithModel("Tracker_CoreData")
-//		window = UIWindow()
-//		window?.makeKeyAndVisible()
-//		window?.rootViewController = ViewController()
+		
+		// print location of sqlite db file
 		print("Documents Directory: ", FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last ?? "Not Found!")
 		return true
 	}
