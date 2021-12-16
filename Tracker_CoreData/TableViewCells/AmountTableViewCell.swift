@@ -26,6 +26,7 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 		// align placeholder text to the right in textField
 		let align = NSTextAlignment.right
 		self.textField.textAlignment = align
+		
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

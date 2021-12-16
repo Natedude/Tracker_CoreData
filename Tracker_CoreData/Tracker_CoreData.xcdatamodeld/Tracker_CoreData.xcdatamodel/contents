@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="EntryEntity" representedClassName="EntryEntity" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="substance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubstanceEntity" inverseName="entries" inverseEntity="SubstanceEntity"/>
@@ -10,7 +11,7 @@
         <relationship name="entries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="EntryEntity" inverseName="substance" inverseEntity="EntryEntity"/>
     </entity>
     <elements>
-        <element name="EntryEntity" positionX="0" positionY="0" width="128" height="104"/>
+        <element name="EntryEntity" positionX="0" positionY="0" width="128" height="123"/>
         <element name="SubstanceEntity" positionX="0" positionY="0" width="128" height="85"/>
     </elements>
 </model>

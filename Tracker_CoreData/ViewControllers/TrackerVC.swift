@@ -30,6 +30,7 @@ class TrackerVC: UIViewController, UITableViewDataSource {
 		// Do any additional setup after loading the view.
 
 		self.showOrHideTable()
+//		_ = Test()
 	}
 	
 	// taken partly from answer by (Frankie) https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message

@@ -31,11 +31,11 @@ class EntryManager {
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
 //		let substance = sm.getSubstances()[0]
-		let e = Entry(id: (lastEntryID + 1), time: date, s: sub)
+		let e = Entry(id: (lastEntryID + 1), time: date, s: sub, a:amt)
 		sub.managedObject.addToEntries(e.managedObject)
 		
 		print("Added entry with Substance: \(e.substance.name)")
-		print(EntryEntity.toString(ee: e.managedObject))
+		print(e.toString())
 		do {
 			try context.saveIfChanged()
 			print("insertNewEntry: SUCCESS")
@@ -46,7 +46,7 @@ class EntryManager {
 		self.fetchEntries()
 	}
 	
-	// Create new row in Entry table
+	// FAKE
 	func insertNewEntry(sm: SubstanceManager){
 		/* triggered when nav + button pressed
 		* segue to new vc or modal?
@@ -58,11 +58,11 @@ class EntryManager {
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
 		let substance = sm.getSubstances()[0]
-		let e = Entry(id: (lastEntryID + 1), time: Date(), s: substance)
+		let e = Entry(id: (lastEntryID + 1), time: Date(), s: substance, a: Double(1))
 		substance.managedObject.addToEntries(e.managedObject)
 
 		print("Added entry with Substance: \(e.substance.name)")
-		print(EntryEntity.toString(ee: e.managedObject))
+		print(e.toString())
 		do {
 			try context.saveIfChanged()
 			print("insertNewEntry: SUCCESS")
@@ -90,14 +90,26 @@ class EntryManager {
 		//		print("------------------------------------END fetchEntries\n")
 	}
 	
+	//static
+//	func printEntries(){
+//		print("EntryManager/printEntries:")
+//		_ = self.entries.map({
+//			(e: Entry) -> (Entry) in
+//			print(e.toString())
+//			return e
+//		})
+////		print("------------------------------------END printEntries\n")
+//	}
+	
+	//instance
 	func printEntries(){
 		print("EntryManager/printEntries:")
 		_ = self.entries.map({
 			(e: Entry) -> (Entry) in
-			print(EntryEntity.toString(ee: e.managedObject))
+			print(e.toString())
 			return e
 		})
-//		print("------------------------------------END printEntries\n")
+		//		print("------------------------------------END printEntries\n")
 	}
 	
 	func deleteAllEntries(){

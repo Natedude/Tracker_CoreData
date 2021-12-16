@@ -17,7 +17,6 @@
 		64229416274E2BDD0002E523 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64229415274E2BDD0002E523 /* Assets.xcassets */; };
 		64229419274E2BDD0002E523 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64229417274E2BDD0002E523 /* LaunchScreen.storyboard */; };
 		643973312761FE1C00177717 /* EntryEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */; };
-		643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973322762022200177717 /* CoreDataCodableClasses.swift */; };
 		643973382762067900177717 /* SubstanceEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */; };
 		64548C312768946000C1553F /* Pods_Tracker_CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */; };
 		64548C332768967F00C1553F /* SubstancesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64548C322768967F00C1553F /* SubstancesVC.swift */; };
@@ -26,6 +25,12 @@
 		6496F2E72769F98900834FFE /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2E62769F98900834FFE /* CurrencyTextField.swift */; };
 		6496F2EA276AE6B400834FFE /* AmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2E8276AE6B400834FFE /* AmountTableViewCell.swift */; };
 		6496F2EC276AF47F00834FFE /* AmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6496F2E9276AE6B400834FFE /* AmountTableViewCell.xib */; };
+		6496F2EE276B1D3000834FFE /* EntryEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2ED276B1D3000834FFE /* EntryEntity+CoreDataClass.swift */; };
+		6496F2F0276B1ED500834FFE /* Entry_Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2EF276B1ED500834FFE /* Entry_Struct.swift */; };
+		6496F2F2276B1EE700834FFE /* Substance_Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2F1276B1EE700834FFE /* Substance_Struct.swift */; };
+		6496F2F4276B1FA500834FFE /* Codable_Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2F3276B1FA500834FFE /* Codable_Extras.swift */; };
+		6496F2F6276B1FEA00834FFE /* SubstanceEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2F5276B1FEA00834FFE /* SubstanceEntity+CoreDataClass.swift */; };
+		6496F2F8276B540700834FFE /* UIViewSetConstraintsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2F7276B540700834FFE /* UIViewSetConstraintsExtension.swift */; };
 		64B407242764724500C6BD75 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B407232764724500C6BD75 /* EntryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +48,6 @@
 		64229418274E2BDD0002E523 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6422941A274E2BDD0002E523 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntryEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		643973322762022200177717 /* CoreDataCodableClasses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataCodableClasses.swift; sourceTree = "<group>"; };
 		643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubstanceEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64548C302768946000C1553F /* Pods_Tracker_CoreData.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_Tracker_CoreData.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64548C322768967F00C1553F /* SubstancesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstancesVC.swift; sourceTree = "<group>"; };
@@ -51,6 +55,12 @@
 		6496F2E62769F98900834FFE /* CurrencyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTextField.swift; sourceTree = "<group>"; };
 		6496F2E8276AE6B400834FFE /* AmountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountTableViewCell.swift; sourceTree = "<group>"; };
 		6496F2E9276AE6B400834FFE /* AmountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmountTableViewCell.xib; sourceTree = "<group>"; };
+		6496F2ED276B1D3000834FFE /* EntryEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntryEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6496F2EF276B1ED500834FFE /* Entry_Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry_Struct.swift; sourceTree = "<group>"; };
+		6496F2F1276B1EE700834FFE /* Substance_Struct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Substance_Struct.swift; sourceTree = "<group>"; };
+		6496F2F3276B1FA500834FFE /* Codable_Extras.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codable_Extras.swift; sourceTree = "<group>"; };
+		6496F2F5276B1FEA00834FFE /* SubstanceEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubstanceEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6496F2F7276B540700834FFE /* UIViewSetConstraintsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewSetConstraintsExtension.swift; sourceTree = "<group>"; };
 		64B407232764724500C6BD75 /* EntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewCell.swift; sourceTree = "<group>"; };
 		A2FDC7E84BB66FC001DFC8DD /* Pods-Tracker_CoreData.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.release.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.release.xcconfig"; sourceTree = "<group>"; };
 		AAE6FE3C90DDE58F62087EC2 /* Pods-Tracker_CoreData.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tracker_CoreData.debug.xcconfig"; path = "Target Support Files/Pods-Tracker_CoreData/Pods-Tracker_CoreData.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +130,7 @@
 				64229417274E2BDD0002E523 /* LaunchScreen.storyboard */,
 				6422941A274E2BDD0002E523 /* Info.plist */,
 				64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */,
+				6496F2F7276B540700834FFE /* UIViewSetConstraintsExtension.swift */,
 			);
 			path = Tracker_CoreData;
 			sourceTree = "<group>";
@@ -137,11 +148,15 @@
 		64814149274E2D1200639A0F /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */,
 				6439732D2761FE1C00177717 /* EntryEntity+CoreDataProperties.swift */,
-				643973322762022200177717 /* CoreDataCodableClasses.swift */,
+				6496F2ED276B1D3000834FFE /* EntryEntity+CoreDataClass.swift */,
+				6496F2EF276B1ED500834FFE /* Entry_Struct.swift */,
 				64181405276968CA00DAB54C /* EntryManager.swift */,
+				643973352762067900177717 /* SubstanceEntity+CoreDataProperties.swift */,
+				6496F2F5276B1FEA00834FFE /* SubstanceEntity+CoreDataClass.swift */,
+				6496F2F1276B1EE700834FFE /* Substance_Struct.swift */,
 				641814072769694B00DAB54C /* SubstanceManager.swift */,
+				6496F2F3276B1FA500834FFE /* Codable_Extras.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -270,10 +285,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6496F2F8276B540700834FFE /* UIViewSetConstraintsExtension.swift in Sources */,
 				64548C3727689C8B00C1553F /* SubstanceTableViewCell.swift in Sources */,
-				643973332762022200177717 /* CoreDataCodableClasses.swift in Sources */,
 				6422940E274E2BDD0002E523 /* TrackerVC.swift in Sources */,
+				6496F2F6276B1FEA00834FFE /* SubstanceEntity+CoreDataClass.swift in Sources */,
 				6418140C2769A35100DAB54C /* AddEntryVC.swift in Sources */,
+				6496F2F4276B1FA500834FFE /* Codable_Extras.swift in Sources */,
 				6496F2EA276AE6B400834FFE /* AmountTableViewCell.swift in Sources */,
 				6496F2E72769F98900834FFE /* CurrencyTextField.swift in Sources */,
 				643973382762067900177717 /* SubstanceEntity+CoreDataProperties.swift in Sources */,
@@ -283,6 +300,9 @@
 				64181406276968CA00DAB54C /* EntryManager.swift in Sources */,
 				6422940A274E2BDD0002E523 /* AppDelegate.swift in Sources */,
 				64B407242764724500C6BD75 /* EntryTableViewCell.swift in Sources */,
+				6496F2F2276B1EE700834FFE /* Substance_Struct.swift in Sources */,
+				6496F2EE276B1D3000834FFE /* EntryEntity+CoreDataClass.swift in Sources */,
+				6496F2F0276B1ED500834FFE /* Entry_Struct.swift in Sources */,
 				64548C332768967F00C1553F /* SubstancesVC.swift in Sources */,
 				6422940C274E2BDD0002E523 /* SceneDelegate.swift in Sources */,
 			);

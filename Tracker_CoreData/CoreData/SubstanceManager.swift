@@ -43,7 +43,7 @@ class SubstanceManager {
 			let substance = Substance(name: name)
 			
 			print("Added Sub with name: \(substance.name)")
-			print(SubstanceEntity.toString(se: substance.managedObject))
+			print(substance.toString())
 			do {
 				try context.saveIfChanged()
 				print("insertNewSub: SUCCESS")
@@ -105,9 +105,8 @@ class SubstanceManager {
 	
 	func printSubstances(){
 		print("SubstanceManager/printSubstances:")
-		_ = self.substances.map({
-			(s: Substance) -> (Substance) in
-			print(SubstanceEntity.toString(se: s.managedObject))
+		_ = self.substances.map({ (s: Substance) -> (Substance) in
+			print(s.toString())
 			return s
 		})
 //		print("------------------------------------END printEntries\n")

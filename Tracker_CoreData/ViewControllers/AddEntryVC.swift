@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 import AUPickerCell
 
+/*
+TODO:
+- add amount to entries
+- style
+- see if I can do better alerts with toasts
+*/
+
 class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, AUPickerCellDelegate {
 
 	let sm = SubstanceManager.sharedInstance
