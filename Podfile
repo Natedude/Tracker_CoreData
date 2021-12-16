@@ -7,5 +7,5 @@ target 'Tracker_CoreData' do
 
   # Pods for Tracker_CoreData
   pod 'CoreDataManager', '~> 0.9'
-
+  pod "AUPickerCell"
 end

@@ -1,20 +1,24 @@
 PODS:
+  - AUPickerCell (1.0.2.0)
   - CoreDataManager (0.9.0):
     - SwiftyJSON (~> 5.0.0)
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
+  - AUPickerCell
   - CoreDataManager (~> 0.9)
 
 SPEC REPOS:
   trunk:
+    - AUPickerCell
     - CoreDataManager
     - SwiftyJSON
 
 SPEC CHECKSUMS:
+  AUPickerCell: b6f788d62f449014204776ff6fdc841aebbc352f
   CoreDataManager: 241c4ecb43c8661b19d5e2376c5cd27701ee85c9
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 30843e57b8c3e55eeb52840602279dcf5ab3ce18
+PODFILE CHECKSUM: acec0e71dbafe290475aa352ace93d66a8e96ec6
 
 COCOAPODS: 1.11.2

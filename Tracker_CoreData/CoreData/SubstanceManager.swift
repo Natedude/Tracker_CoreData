@@ -23,6 +23,12 @@ class SubstanceManager {
 		addTestSub()
 	}
 	
+	func subsAsStringArr() -> [String]{
+		return self.substances.map{ s in
+			return s.name
+		} as [String]
+	}
+	
 	func doesNameExist(name: String) -> Bool {
 		let matches = self.substances.filter{ s in
 			s.name == name
@@ -52,6 +58,18 @@ class SubstanceManager {
 		//		self.printEntries()
 	}
 	
+	func getSubFromString(str: String) -> Substance? {
+		let matchArr = self.substances.filter{ s in
+			s.name == str
+		}
+		if(matchArr.count == 1){
+			return matchArr[0]
+		} else {
+			// 0 matches
+			return nil
+		}
+	}
+	
 	func addTestSub(){
 		//		let testS = Substance(name: "Test")
 		let ctx = self.cdm.mainContext
@@ -75,7 +93,8 @@ class SubstanceManager {
 	func fetchSubstances() {
 		print("SubstanceManager/fetchSubstances:")
 		let ctx = self.cdm.mainContext
-		let seArr: [SubstanceEntity] = ctx.managerFor(SubstanceEntity.self).array as [SubstanceEntity]
+		// might not need '.array' at end
+		let seArr: [SubstanceEntity] = ctx.managerFor(SubstanceEntity.self).orderBy("name").array as [SubstanceEntity]
 		self.substances = SubstanceEntity.seArr2sArr(seArr: seArr)
 		
 		//printing

@@ -23,6 +23,27 @@ class EntryManager {
 		EntryManager.format.dateFormat = "h:mma"
 	}
 	
+	func insertNewEntry(date: Date, sub: Substance, amt: Double, sm: SubstanceManager){
+		print("EntryManager/insertNewEntry(date,sub,amt,sm):")
+		let context = self.cdm.mainContext
+		let entryManager = context.managerFor(EntryEntity.self)
+		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
+//		let substance = sm.getSubstances()[0]
+		let e = Entry(id: (lastEntryID + 1), time: date, s: sub)
+		sub.managedObject.addToEntries(e.managedObject)
+		
+		print("Added entry with Substance: \(e.substance.name)")
+		print(EntryEntity.toString(ee: e.managedObject))
+		do {
+			try context.saveIfChanged()
+			print("insertNewEntry: SUCCESS")
+		} catch {
+			print("insertNewEntry() ERROR: \(error)")
+		}
+		print("------------------------------------END insertNewEntry\n")
+		self.fetchEntries()
+	}
+	
 	// Create new row in Entry table
 	func insertNewEntry(sm: SubstanceManager){
 		/* triggered when nav + button pressed
@@ -30,7 +51,7 @@ class EntryManager {
 		* get data for newEntry from the view or modal
 		* make Entry and save
 		*/
-		print("EntryManager/insertNewEntry:")
+		print("EntryManager/insertNewEntry(sm):")
 		let context = self.cdm.mainContext
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0

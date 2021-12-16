@@ -22,8 +22,6 @@ class SubstanceVC: UIViewController, UITableViewDataSource {
 	private let sm = SubstanceManager.sharedInstance
 	@IBOutlet weak var tableView: UITableView!
 	
-	
-	
 	@IBAction func addButtonPress(_ sender: Any) {
 		// TextField alert taken from https://www.youtube.com/watch?v=xLWfJIYg2PM
 		let alert = UIAlertController(

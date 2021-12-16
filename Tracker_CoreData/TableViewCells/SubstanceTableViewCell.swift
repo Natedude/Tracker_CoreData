@@ -1,8 +1,8 @@
 //
-//  EntryTableViewCell.swift
+//  SubstanceTableViewCell.swift
 //  Tracker_CoreData
 //
-//  Created by Nathan Hildum on 12/10/21.
+//  Created by Nathan Hildum on 12/14/21.
 //  Copyright © 2021 Nathan Hildum. All rights reserved.
 //
 
@@ -10,12 +10,11 @@ import Foundation
 import UIKit
 
 // (CocoaCasts)
-class EntryTableViewCell: UITableViewCell {
+class SubstanceTableViewCell: UITableViewCell {
 	// MARK: - Properties
-	static let reuseIdentifier = "EntryCell"
+	static let reuseIdentifier = "SubstanceCell"
 	
-	// MARK: -
-	@IBOutlet weak var timeLabel: UILabel!
+	// MARK: - Outlets
 	@IBOutlet weak var substanceLabel: UILabel!
 	
 	// MARK: - Initialization

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "64229405274E2BDD0002E523"
-               BuildableName = "Tracker_CoreData.app"
-               BlueprintName = "Tracker_CoreData"
-               ReferencedContainer = "container:Tracker_CoreData.xcodeproj">
+               BlueprintIdentifier = "052956978A413ABA2BD3AF709830F576"
+               BuildableName = "Pods_Tracker_CoreData.framework"
+               BlueprintName = "Pods-Tracker_CoreData"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "052956978A413ABA2BD3AF709830F576"
-               BuildableName = "Pods_Tracker_CoreData.framework"
-               BlueprintName = "Pods-Tracker_CoreData"
-               ReferencedContainer = "container:Pods/Pods.xcodeproj">
+               BlueprintIdentifier = "64229405274E2BDD0002E523"
+               BuildableName = "Tracker_CoreData.app"
+               BlueprintName = "Tracker_CoreData"
+               ReferencedContainer = "container:Tracker_CoreData.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

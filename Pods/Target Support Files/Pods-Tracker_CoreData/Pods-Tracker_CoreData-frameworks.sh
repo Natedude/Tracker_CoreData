@@ -176,10 +176,12 @@ code_sign_if_enabled() {
 }
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/AUPickerCell/AUPickerCell.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CoreDataManager/CoreDataManager.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/AUPickerCell/AUPickerCell.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CoreDataManager/CoreDataManager.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework"
 fi
