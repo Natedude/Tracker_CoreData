@@ -8,14 +8,14 @@
 
 import UIKit
 
-class TestTableViewCell: UITableViewCell, UITextFieldDelegate {
+class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 	@IBOutlet weak var textField: CurrencyTextField!
 	
-	static let reuseIdentifier = "TestTableViewCell"
+	static let reuseIdentifier = "AmountTableViewCell"
 	var stringWrapper: StringWrapper!
 	
 	static func nib() -> UINib {
-		return UINib(nibName: "TestTableViewCell",
+		return UINib(nibName: "AmountTableViewCell",
 					 bundle: nil)
 	}
 	
@@ -26,6 +26,8 @@ class TestTableViewCell: UITableViewCell, UITextFieldDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+		
+		// align placeholder text to the right in textField
 		let align = NSTextAlignment.right
 		self.textField.textAlignment = align
     }
@@ -36,6 +38,8 @@ class TestTableViewCell: UITableViewCell, UITextFieldDelegate {
         // Configure the view for the selected state
     }
 	
+	// Inspired by demo of use of shouldChangeCharacterIn UITextFieldDelegate func
+	// in Patrick Lin's answer on https://stackoverflow.com/questions/27215495/limit-uitextfield-input-to-numbers-in-swift
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 		guard let inputText = textField.text else {
 			print("AmountFieldTableViewCell/shouldChangeCharactersIn: textField.text nil")
@@ -45,16 +49,4 @@ class TestTableViewCell: UITableViewCell, UITextFieldDelegate {
 		print("stringWrapper.wrappedString = \(stringWrapper.wrappedString)")
 		return true
 	}
-	
-	// When text field has finished being edited by the user,
-	// set the wrapped string to the input amount string
-	// UITextFieldDelegate inspired by Scott McKenzie's answer on https://stackoverflow.com/questions/49752220/get-data-from-custom-tableview-cell-text-field
-//	func textFieldDidEndEditing(_ textField: UITextField) {
-//		guard let inputText = textField.text else {
-//			print("AmountFieldTableViewCell/textFieldDidEndEditing: textField.text nil")
-//			return
-//		}
-//		stringWrapper.wrappedString = inputText
-//	}
-    
 }

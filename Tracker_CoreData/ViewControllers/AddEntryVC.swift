@@ -63,7 +63,7 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 		self.tableView.reloadData()
 //		self.estimatedRowHeight = self.tableView.estimatedRowHeight
 //		self.tableView.register(AmountFieldTableViewCell.nib(), forCellReuseIdentifier: AmountFieldTableViewCell.reuseIdentifier)
-		self.tableView.register(TestTableViewCell.nib(), forCellReuseIdentifier: TestTableViewCell.reuseIdentifier)
+		self.tableView.register(AmountTableViewCell.nib(), forCellReuseIdentifier: AmountTableViewCell.reuseIdentifier)
 //		print("AddEntryVC/viewDidLoad: ran")
 	}
 	
@@ -169,7 +169,7 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 //				cell.stringWrapper = self.amountEnteredSW
 //				print("AddEntryVC/cellForRowAt(2): returing\n\(cell)")
 //				return cell
-				guard let cell = tableView.dequeueReusableCell(withIdentifier: TestTableViewCell.reuseIdentifier, for: indexPath) as? TestTableViewCell else {
+				guard let cell = tableView.dequeueReusableCell(withIdentifier: AmountTableViewCell.reuseIdentifier, for: indexPath) as? AmountTableViewCell else {
 					fatalError("Unexpected Index Path")
 				}
 				cell.textField.delegate = cell
