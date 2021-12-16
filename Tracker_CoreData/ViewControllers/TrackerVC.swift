@@ -57,7 +57,7 @@ class TrackerVC: UIViewController, UITableViewDataSource {
 		let entry = self.em.get(idx: indexPath.row)
 		//		entry.printEntry()
 		//		print(entry)
-		let timeStr = EntryManager.format.string(from: entry.time)
+		let timeStr = EntryManager.timeDateFormatter.string(from: entry.time)
 		//		print(timeStr)
 		//		print(cell)
 		

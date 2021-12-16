@@ -19,10 +19,6 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 					 bundle: nil)
 	}
 	
-//	func configure(str: String){
-//		
-//	}
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -16,7 +16,7 @@ class SubstanceManager {
 	static let sharedInstance = SubstanceManager()
 	private let cdm = CoreDataManager.sharedInstance
 	var substances: [Substance] = []
-	public static let format = DateFormatter()
+//	public static let format = DateFormatter()
 	
 	private init(){
 		self.fetchSubstances()

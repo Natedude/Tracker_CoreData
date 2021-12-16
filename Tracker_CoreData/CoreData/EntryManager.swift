@@ -13,14 +13,16 @@ import CoreDataManager
 class EntryManager {
 	// singleton pattern taken from https://krakendev.io/blog/the-right-way-to-write-a-singleton
 	static let sharedInstance = EntryManager()
-	static let format = DateFormatter()
+	static let timeFormatter = DateFormatter()
+	static let timeDateFormatter = DateFormatter()
 	private let cdm = CoreDataManager.sharedInstance
 //	private let sm = SubstanceManager.sharedInstance
 	private var entries:[Entry] = []
 	
 	private init(){
 		self.fetchEntries()
-		EntryManager.format.dateFormat = "h:mma"
+		EntryManager.timeFormatter.dateFormat = "h:mm a"
+		EntryManager.timeDateFormatter.dateFormat = "h:mma MM/dd/yy"
 	}
 	
 	func insertNewEntry(date: Date, sub: Substance, amt: Double, sm: SubstanceManager){
@@ -82,7 +84,7 @@ class EntryManager {
 	func fetchEntries() {
 		print("EntryManager/fetchEntries:")
 		let ctx = self.cdm.mainContext
-		let eeArr: [EntryEntity] = ctx.managerFor(EntryEntity.self).array as [EntryEntity]
+		let eeArr: [EntryEntity] = ctx.managerFor(EntryEntity.self).orderBy("-time").array as [EntryEntity]
 		self.entries = EntryEntity.eeArr2eArr(eeArr: eeArr)
 		self.printEntries()
 		//		print("------------------------------------END fetchEntries\n")
