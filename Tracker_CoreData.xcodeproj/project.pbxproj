@@ -25,6 +25,7 @@
 		64548C332768967F00C1553F /* SubstancesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64548C322768967F00C1553F /* SubstancesVC.swift */; };
 		64548C3727689C8B00C1553F /* SubstanceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64548C3627689C8B00C1553F /* SubstanceTableViewCell.swift */; };
 		6481415A274E90E000639A0F /* Tracker_CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64229412274E2BDD0002E523 /* Tracker_CoreData.xcdatamodeld */; };
+		6496F2E72769F98900834FFE /* CurrencyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2E62769F98900834FFE /* CurrencyTextField.swift */; };
 		6496F2EA276AE6B400834FFE /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6496F2E8276AE6B400834FFE /* TestTableViewCell.swift */; };
 		6496F2EB276AE6B400834FFE /* TestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6496F2E9276AE6B400834FFE /* TestTableViewCell.xib */; };
 		64B407242764724500C6BD75 /* EntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B407232764724500C6BD75 /* EntryTableViewCell.swift */; };
