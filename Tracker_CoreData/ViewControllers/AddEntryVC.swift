@@ -122,9 +122,9 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 			cell.selectedRow = 0
 			self.subSelectedStr = cell.values[0]
 			cell.leftLabel.text = "Substance:"
-			cell.leftLabel.textColor = UIColor.lightText
-			cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
-			cell.backgroundColor = #colorLiteral(red: 0.6344745755, green: 0.5274511576, blue: 0.4317585826, alpha: 1)
+			cell.leftLabel.textColor = UIColor.darkText
+//			cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+//			cell.backgroundColor = #colorLiteral(red: 0.6344745755, green: 0.5274511576, blue: 0.4317585826, alpha: 1)
 			print("AddEntryVC/getPickerDefaultCell: set cell.values = \(cell.values)")
 			return cell
 		} else {
@@ -154,9 +154,9 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 			// TODO: how to disable expanding? and then when I get
 			//cell.setSelectedRow(0,false)
 			cell.leftLabel.text = "Substance:"
-			cell.leftLabel.textColor = UIColor.lightText
-			cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
-			cell.backgroundColor = #colorLiteral(red: 0.6344745755, green: 0.5274511576, blue: 0.4317585826, alpha: 1)
+			cell.leftLabel.textColor = UIColor.darkText
+//			cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+//			cell.backgroundColor = #colorLiteral(red: 0.6344745755, green: 0.5274511576, blue: 0.4317585826, alpha: 1)
 			//				print("AddEntryVC/cellForRowAt(1): returing\n\(cell)")
 			return cell
 		}
@@ -346,10 +346,10 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 				cell.dateStyle = .short
 				cell.timeStyle = .short
 				cell.leftLabel.text = "Date and Time:"
-				cell.leftLabel.textColor = UIColor.lightText
+				cell.leftLabel.textColor = UIColor.darkText
 				cell.rightLabel.textColor = UIColor.darkText
-				cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
-				cell.backgroundColor = #colorLiteral(red: 0.6344745755, green: 0.5274511576, blue: 0.4317585826, alpha: 1)
+//				cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
+//				cell.backgroundColor = #colorLiteral(red: 0.6344745755, green: 0.5274511576, blue: 0.4317585826, alpha: 1)
 				cell.separatorHeight = 1
 				//				print("AddEntryVC/cellForRowAt(0): returing\n\(cell)")
 				return cell
