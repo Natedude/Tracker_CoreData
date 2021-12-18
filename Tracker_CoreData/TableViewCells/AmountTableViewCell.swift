@@ -51,25 +51,11 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 		/*
 		input range stuff inspired by https://stackoverflow.com/questions/32305891/index-of-a-substring-in-a-string-with-swift
 		*/
-		let rangeOf0 = input.range(of: "0")
-		let r0 = rangeOf0 ?? nil
-		if r0 != nil {
-			//
-			input.remove(at: r0!.lowerBound)
-			
-			//no zero so we dont move dot
-//			let rangeOfDot = input.range(of: ".")
-//			guard let r1 = rangeOfDot else {
-//				print("shouldChangeCharactersIn: r = range error")
-//				return true
-//			}
-//			input.remove(at: r1.lowerBound)
-//			input.insert(".", at: r1.upperBound)
-		}
+//
 		
 		// if enter alpha char does move period
 		// if there is a dot move it
-		// but we dont want to move dot if non numeric entered TODO
+		// but we dont want to move dot if non numeric entered
 		let str = string.filter("0123456789.".contains)
 		print("str.isEmpty = \(str.isEmpty)")
 		if !str.isEmpty {
@@ -80,64 +66,14 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 			}
 			input.remove(at: r1.lowerBound)
 			input.insert(".", at: r1.upperBound)
-		}
-//		let rangeOfDot = input.range(of: ".")
-//		guard let r1 = rangeOfDot else {
-//			print("shouldChangeCharactersIn: r1 = rangeOfDot error")
-//			return true
-//		}
-//		input.remove(at: r1.lowerBound)
-//		input.insert(".", at: r1.upperBound)
-		
-		
-//		print("string = \(string)")
-//		let text = self.textField.text ?? "error"
-//		print("text = \(text)")
-//		let rangeOfComma = text.range(of: ",")
-//		let rComma = rangeOfComma ?? nil
-//		if rComma == nil{
-//			print("rComma = rangeOfComma nil")
-//			
-//		} else {
-//			input.remove(at: rComma!.lowerBound)
-//			input.insert(",", at: rComma!.upperBound)
-//		}
-		
-			//			let rangeOfDot = input.range(of: ".")
-			//			guard let r1 = rangeOfDot else {
-			//				print("shouldChangeCharactersIn: r = range error")
-			//				return true
-			//			}
-			//			input.remove(at: r1.lowerBound)
-			//			input.insert(".", at: r1.upperBound)
-//		11
-		
-		
-//		let rangeOf0 = input.range(of: "0")
-//		guard let r0 = rangeOf0 else {
-//			print("shouldChangeCharactersIn: r = range error")
-//			return true
-//		}
-//		input.remove(at: r0.lowerBound)
-//
-//		input.insert(char, at: r0.upperBound)
-		
-//		let r0 = rangeOf0
-//		{
-//			print("shouldChangeCharactersIn: r0 = range0 is nil error")
-//			is0 = false
-////			return false
-//		}
-//		input.remove(at: r0.lowerBound)
-		let num = string.filter("0123456789.".contains)// if letter entered
-		if !num.isEmpty {
-//			if r0 == nil {
-				input = input + num
-//			}
-		} else {
 			
+			let rangeOf0 = input.range(of: "0")
+			let r0 = rangeOf0 ?? nil
+			if r0 != nil {
+				input.remove(at: r0!.lowerBound)
+			}
+			input = input + str
 		}
-		
 		
 		stringWrapper.wrappedString = input
 		print("shouldChangeCharactersIn: stringWrapper.wrappedString = \(stringWrapper.wrappedString)")
