@@ -31,6 +31,7 @@ class EntryManager {
 		let entryManager = context.managerFor(EntryEntity.self)
 		let lastEntryID = (entryManager.max("id") as? Int64) ?? 0
 //		let substance = sm.getSubstances()[0]
+		
 		let e = Entry(id: (lastEntryID + 1), time: date, s: sub, a:amt) //sub and amt nil
 		sub.managedObject.addToEntries(e.managedObject)
 		

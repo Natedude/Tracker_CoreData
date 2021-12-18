@@ -198,7 +198,7 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 		//		let formatter = NumberFormatter()
 		//		formatter.numberStyle = .none
 		print("AddEntryVC/addButtonPress:")
-		
+		let unfiltered = self.amountEnteredSW.wrappedString
 		let filteredString = self.amountEnteredSW.wrappedString.filter("0123456789.".contains)
 		//remove commas
 		//		string = string.filter("0123456789.".contains)
@@ -231,7 +231,12 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 				return
 			}
 			print("AddEntryVC/addButtonPress: right before insert: filtered string = \(filteredString)")
-			self.em.insertNewEntry(date: datePicked, sub: sub, amt: filteredString, sm: self.sm)
+			self.em.insertNewEntry(
+				date: datePicked,
+				sub: sub,
+				amt: unfiltered,
+				sm: self.sm
+			)
 			
 			self.addEntrySuccessAlert(handler: { uia in
 				self.performSegue(withIdentifier: "addedEntrySegue", sender: self)

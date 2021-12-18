@@ -68,6 +68,7 @@ import UIKit
 		let cleanNumericString = getCleanNumberString()
 		let textFieldLength = text?.count
 		let textFieldNumber = Double(cleanNumericString)
+//		print(getString())
 		
 		if cleanNumericString.count <= maxDigits && textFieldNumber != nil {
 			setAmount(textFieldNumber! / 100)
@@ -87,6 +88,10 @@ import UIKit
 	}
 	
 	//MARK - helper functions
+	
+//	private func getString() -> String{
+//		return text?.components(separatedBy: CharacterSet(charactersIn: "0123456789.,").inverted).joined() ?? ""
+//	}
 	
 	private func getCleanNumberString() -> String {
 		return text?.components(separatedBy: CharacterSet(charactersIn: "0123456789").inverted).joined() ?? ""
