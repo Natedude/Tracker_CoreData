@@ -7,12 +7,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--SubstanceVC-->
+        <!--Substances-->
         <scene sceneID="sdZ-zr-1wH">
             <objects>
                 <viewController id="USA-JF-Koy" customClass="SubstanceVC" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l7m-wF-Rq2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4dS-Gy-l4v">
@@ -54,7 +54,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="4cC-Y9-vMB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="XCf-Oh-fnO">
+                    <navigationItem key="navigationItem" title="Substances" id="XCf-Oh-fnO">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FzT-Iw-lHZ">
                             <connections>
                                 <action selector="addButtonPress:" destination="USA-JF-Koy" id="0kg-5R-q8J"/>
@@ -69,12 +69,12 @@
             </objects>
             <point key="canvasLocation" x="644.92753623188412" y="-558.48214285714278"/>
         </scene>
-        <!--TrackerVC-->
+        <!--Entries-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TrackerVC" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nnr-Nf-rqb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JUU-h0-Y0K">
@@ -142,7 +142,7 @@
                         <color key="backgroundColor" red="0.1215686275" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="mSu-3K-aMN"/>
                     </view>
-                    <navigationItem key="navigationItem" id="qgE-eo-mg8">
+                    <navigationItem key="navigationItem" title="Entries" id="qgE-eo-mg8">
                         <barButtonItem key="leftBarButtonItem" title="Substances" id="Oju-3L-H8S">
                             <connections>
                                 <segue destination="USA-JF-Koy" kind="show" id="2Bu-UV-eTL"/>
@@ -182,12 +182,12 @@
             </objects>
             <point key="canvasLocation" x="143" y="139"/>
         </scene>
-        <!--Add EntryVC-->
+        <!--Add Entry-->
         <scene sceneID="WOM-RN-2WS">
             <objects>
                 <viewController id="LQ2-D1-Wmw" customClass="AddEntryVC" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6D1-ce-eym">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MAy-ER-lDf">
@@ -203,7 +203,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="3Zr-vB-esV"/>
                     </view>
-                    <navigationItem key="navigationItem" id="OAZ-iP-zdg">
+                    <navigationItem key="navigationItem" title="Add Entry" id="OAZ-iP-zdg">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DWQ-6h-QVw">
                             <connections>
                                 <action selector="addButtonPress:" destination="LQ2-D1-Wmw" id="fCg-ON-Xrc"/>
@@ -222,7 +222,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0t0-Rt-oQv"/>
+        <segue reference="OHg-KJ-U4p"/>
+        <segue reference="iQJ-l1-6TV"/>
         <segue reference="2Bu-UV-eTL"/>
     </inferredMetricsTieBreakers>
 </document>
