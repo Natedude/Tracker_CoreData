@@ -66,8 +66,10 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 		/* how do I set the cell in the array? in the tv
 		- there is no array!
 		*/
-		print("addEntryVC/viewWillAppear")
+		self.sm.fetchSubstances()
+		print("addEntryVC/viewWillAppear:")
 		self.needNewPickerDefaultCell = true
+		self.tableView.reloadData()
 		//		self.tableView.reloadData()
 		
 		//		// substance
@@ -100,11 +102,14 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 	
 	func getPickerDefaultCell() -> AUPickerCell {
 		
-		if self.needNewPickerDefaultCell {
+		if !self.needNewPickerDefaultCell {
+			//normal entry
 			self.needNewPickerDefaultCell = false
-			print("AddEntryVC/getPickerDefaultCell: self.needNewPickerPickerDefault ")
+			print("AddEntryVC/getPickerDefaultCell: self.needNewPickerPickerDefault:")
+			print("self.needNewPickerDefaultCell \(self.needNewPickerDefaultCell)")
 			let cell = AUPickerCell(type: .default, reuseIdentifier: "PickerDefaultCell")
 			cell.delegate = self
+			self.sm.fetchSubstances()
 			cell.values = self.sm.subsAsStringArr()
 			if cell.values.count == 0 {
 				print("cell.values.count == 0")
@@ -115,7 +120,7 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 				cell.rightLabel.textColor = UIColor.darkText
 			}
 			cell.selectedRow = 0
-			self.subSelectedStr = self.subArr[0]
+			self.subSelectedStr = cell.values[0]
 			cell.leftLabel.text = "Substance:"
 			cell.leftLabel.textColor = UIColor.lightText
 			cell.tintColor = #colorLiteral(red: 0.9382581115, green: 0.8733785748, blue: 0.684623003, alpha: 1)
@@ -123,14 +128,18 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 			print("AddEntryVC/getPickerDefaultCell: set cell.values = \(cell.values)")
 			return cell
 		} else {
-			//			return AUPickerCell(type: .default, reuseIdentifier: "PickerDefaultCell")
+			// need to recreate bc substances list edit
 			let cell = AUPickerCell(type: .default, reuseIdentifier: "PickerDefaultCell")
-			//			let cell = self.getPickerDefaultCell() //?
+
+			print("AddEntryVC/getPickerDefaultCell: self.needNewPickerPickerDefault: \nneed to recreate bc substances list edit")
+			print("self.needNewPickerDefaultCell \(self.needNewPickerDefaultCell)")
+			
 			cell.delegate = self
 			//				cell.separatorInset = UIEdgeInsets.zero
 			//				var separatorColor: UIColor?
-			//				cell.leftLabel.constraint()
 			cell.values = self.sm.subsAsStringArr()
+//			self.subSelectedStr = cell.values[0] /// fatal error
+			print("cell.values = \(cell.values)")
 			if cell.values.count == 0 {
 				print("cell.values.count == 0")
 				cell.values = ["No Substances"]
@@ -140,6 +149,7 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 				cell.rightLabel.textColor = UIColor.darkText
 			}
 			cell.selectedRow = 0
+			self.subSelectedStr = cell.values[0]
 			//				cell.sele
 			// TODO: how to disable expanding? and then when I get
 			//cell.setSelectedRow(0,false)
@@ -163,6 +173,7 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 		//			fatalError("Unexpected Index Path")
 		//		}
 		cell.delegate = self
+		print("self.sm.subsAsStringArr() is\n\(self.sm.subsAsStringArr())")
 		cell.values = self.sm.subsAsStringArr()
 		if cell.values.count == 0 {
 			print("cell.values.count == 0")
@@ -213,8 +224,10 @@ class AddEntryVC: UIViewController, UITableViewDataSource, UITableViewDelegate, 
 			// add entry
 			
 			// get sub
+//			self.subSelectedStr =
+			print("self.subSelectedStr = \(self.subSelectedStr)")
 			guard let sub = self.sm.getSubFromString(str: self.subSelectedStr) else {
-				print("AddEntryVC/addButtonPress: subSelectedStr ERROR subStr = nil") ///////////////////// CHANGE
+				print("AddEntryVC/addButtonPress:  sub returned from self.sm.getSubFromString = nil") ///////////////////// CHANGE
 				return
 			}
 			print("AddEntryVC/addButtonPress: right before insert: filtered string = \(filteredString)")

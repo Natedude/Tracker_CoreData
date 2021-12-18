@@ -24,6 +24,7 @@ class SubstanceManager {
 	}
 	
 	func subsAsStringArr() -> [String]{
+		self.fetchSubstances()
 		return self.substances.map{ s in
 			return s.name
 		} as [String]
@@ -69,7 +70,8 @@ class SubstanceManager {
 			return matchArr[0]
 		} else {
 			// 0 matches
-			print("0 matches ERROR")
+			print("0 matches ERROR\n------------------------------------!!!!!!!!!!!!!!!!!!str = \(str)")
+			/////////////// this is getting 'No Substances'
 			print("------------------------------------END getSubFromString\n")
 			return nil
 		}
@@ -100,22 +102,26 @@ class SubstanceManager {
 		print("SubstanceManager/fetchSubstances:")
 		let ctx = self.cdm.mainContext
 		// might not need '.array' at end
-		let seArr: [SubstanceEntity] = ctx.managerFor(SubstanceEntity.self).orderBy("name").array as [SubstanceEntity]
+		let seArr: [SubstanceEntity] = ctx
+			.managerFor(SubstanceEntity.self)
+			.orderBy("name").array as [SubstanceEntity]
 		self.substances = SubstanceEntity.seArr2sArr(seArr: seArr)
 		
 		//printing
-		self.printSubstances()
+//		self.printSubstances()
 		//		self.tableView.reloadData()
 //		print("------------------------------------END fetchSubstances\n")
 	}
 	
 	func printSubstances(){
 		print("SubstanceManager/printSubstances:")
+		self.fetchSubstances()
+		print("self.substances = \(self.substances)")
 		_ = self.substances.map({ (s: Substance) -> (Substance) in
 			print(s.toString())
 			return s
 		})
-//		print("------------------------------------END printEntries\n")
+		print("------------------------------------END printEntries\n")
 	}
 	
 	func deleteAllSubstances(){

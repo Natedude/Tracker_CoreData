@@ -124,7 +124,7 @@ public class EntryEntity: NSManagedObject, Codable {
 			print("eeArr2eArr: eeArr EMPTY")
 			return []
 		}
-		print("------------------------------------END eeArr2eArr\n")
+//		print("------------------------------------END eeArr2eArr\n")
 	}
 	
 	//	public static eeOptArr2eeArr(eeOptArr: [EntryEntity?]) -> [EntryEntity]{
