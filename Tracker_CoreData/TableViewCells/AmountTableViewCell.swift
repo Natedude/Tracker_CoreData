@@ -46,13 +46,10 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 			print("textField.text nil")
 			return true
 		}
-//		print("input = \(input)")
-//		input = input.filter("0123456789.".contains)
-////		let added = filtered + string
-//		let text = self.textField.text ?? "shChChIn"
-//		text.
-//		print("string = \(string)")
-//		print("final = \(final)")
+
+		/*
+		input range stuff inspired by https://stackoverflow.com/questions/32305891/index-of-a-substring-in-a-string-with-swift
+		*/
 		let rangeOfDot = input.range(of: ".")
 		guard let r1 = rangeOfDot else {
 			print("shouldChangeCharactersIn: r = range error")
@@ -72,12 +69,7 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 			str = "0"
 		}
 		input = input + str
-//		let char = input[r.lowerBound] //worked
-//		let charAtIdx = input[idx]
 		
-//		let idx = inputText.
-//		print("input =  \(input)")
-//		print("char =  \(char)")
 		stringWrapper.wrappedString = input
 		print("shouldChangeCharactersIn: stringWrapper.wrappedString = \(stringWrapper.wrappedString)")
 		return true
