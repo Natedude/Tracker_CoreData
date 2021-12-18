@@ -17,41 +17,57 @@ public struct Entry {
 	var id: Int64
 	var time: Date
 	var substance: Substance
-	var amount: Double
+	var amount: String
 	var managedObject: EntryEntity
 	
 	//turn MO into struct
 	init?(entryEntity: EntryEntity) {
-		//		print("EntryEntity/Entry()/init:")
+				print("EntryEntity/Entry()/init:")
 		guard
-			let id = entryEntity.value(forKey: "id") as? Int64,
-			let t = entryEntity.value(forKey: "time") as? Date,
-			let sE = entryEntity.value(forKey: "substance") as? SubstanceEntity,
-			let a = entryEntity.value(forKey: "amount") as? Double
-			else {
-				print("Substance/init(sE): !!! ERROR return nil instead of SubstanceEntity instance !!!")
+			let id = entryEntity.value(forKey: "id") as? Int64 else {
+				print("Entry/init(ee): id = nil")
 				return nil
 		}
+		guard
+			let t = entryEntity.value(forKey: "time") as? Date else {
+				print("Entry/init(ee): time = nil")
+				return nil
+		}
+		guard
+			let sE = entryEntity.value(forKey: "substance") as? SubstanceEntity else {
+				print("Entry/init(ee): substancEntity = nil")
+				return nil
+		}
+//		guard
+//			let a = entryEntity.value(forKey: "amount") as? String ///// nil
+//			else {
+//				print("Entry/init(ee): amount = nil")
+//				return nil
+//		}
 		self.id = id
 		self.time = t
 		guard let s = Substance(substanceEntity: sE) else {
-			print("Substance/init(sE): !!! ERROR return nil instead of Substance instance !!!")
+			print("Entry/init(ee)/init(ee): !!! ERROR return nil instead of Substance instance !!!")
 			return nil
 		}
 		self.substance = s//Substance().managedObject
-		self.amount = a
+		let aMaybeNone = (entryEntity.value(forKey: "amount") ?? "none2") as! String
+		print("Substance/init(sE): aMaybeNone = \(aMaybeNone)")
+		self.amount = aMaybeNone
 		self.managedObject = entryEntity
 		self.managedObject.substance = sE
+		self.managedObject.amount = aMaybeNone // no matter what I put it gets then null in db?
 		//		print(self.toString() + "Entry(ee)/init SUCCESS")
 		//		print("------------------------------------END init\n")
 	}
 	
 	// create new MO by creating a struct
-	init(id: Int64, time: Date, s: Substance, a: Double) {
+	init(id: Int64, time: Date, s: Substance, a: String) {
 		self.managedObject = EntryEntity(context: CoreDataManager.sharedInstance.mainContext)
 		self.managedObject.id = id
 		self.managedObject.time = time
 		self.managedObject.substance = s.managedObject
+		self.managedObject.amount = a
 		self.id = id
 		self.time = time
 		self.substance = s

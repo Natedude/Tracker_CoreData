@@ -20,7 +20,7 @@ class SubstanceManager {
 	
 	private init(){
 		self.fetchSubstances()
-		addTestSub()
+//		addTestSub()
 	}
 	
 	func subsAsStringArr() -> [String]{
@@ -59,15 +59,21 @@ class SubstanceManager {
 	}
 	
 	func getSubFromString(str: String) -> Substance? {
+		print("SubstanceManager/getSubFromString:")
+		self.fetchSubstances()
 		let matchArr = self.substances.filter{ s in
 			s.name == str
 		}
 		if(matchArr.count == 1){
+			print("------------------------------------END getSubFromString\n")
 			return matchArr[0]
 		} else {
 			// 0 matches
+			print("0 matches ERROR")
+			print("------------------------------------END getSubFromString\n")
 			return nil
 		}
+		
 	}
 	
 	func addTestSub(){
@@ -120,6 +126,7 @@ class SubstanceManager {
 		} catch {
 			print("SubstanceManager/deleteAllSubstances: ctx.saveIfChanged() Error: \(error)")
 		}
+		print("SubstanceManager/deleteAllSubstances: self.substances.count=\(self.substances.count)")
 	}
 	
 	func getSubstances() -> [Substance] {

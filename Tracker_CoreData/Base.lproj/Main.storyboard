@@ -12,7 +12,7 @@
             <objects>
                 <viewController id="USA-JF-Koy" customClass="SubstanceVC" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l7m-wF-Rq2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4dS-Gy-l4v">
@@ -74,7 +74,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="TrackerVC" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nnr-Nf-rqb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JUU-h0-Y0K">
@@ -183,14 +183,14 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DNm-u0-o8E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+            <point key="canvasLocation" x="143" y="139"/>
         </scene>
         <!--Add EntryVC-->
         <scene sceneID="WOM-RN-2WS">
             <objects>
                 <viewController id="LQ2-D1-Wmw" customClass="AddEntryVC" customModule="Tracker_CoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6D1-ce-eym">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MAy-ER-lDf">
@@ -216,6 +216,7 @@
                     <connections>
                         <outlet property="tableView" destination="MAy-ER-lDf" id="xyj-4N-J5Z"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addedEntrySegue" id="iQJ-l1-6TV"/>
+                        <segue destination="USA-JF-Koy" kind="show" identifier="addSubstanceSegue" id="Nob-dt-RnS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4D-Ey-m7a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -224,7 +225,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OHg-KJ-U4p"/>
-        <segue reference="iQJ-l1-6TV"/>
+        <segue reference="0t0-Rt-oQv"/>
+        <segue reference="2Bu-UV-eTL"/>
     </inferredMetricsTieBreakers>
 </document>

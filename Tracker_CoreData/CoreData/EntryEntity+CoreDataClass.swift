@@ -30,7 +30,7 @@ public class EntryEntity: NSManagedObject, Codable {
 		self.id = try container.decode(Int64.self, forKey: .id)
 		self.time = try container.decode(Date.self, forKey: .time)
 		self.substance = try container.decode(SubstanceEntity.self, forKey: .substance)
-		self.amount = try container.decode(Double.self, forKey: .amount)
+		self.amount = try container.decode(String.self, forKey: .amount)
 	}
 	
 	public func encode(to encoder: Encoder) throws {
@@ -61,16 +61,18 @@ public class EntryEntity: NSManagedObject, Codable {
 //	}
 	
 	func toString() -> String{
-		//		print("EntryEntity/toString:")
+		print("EntryEntity/toString: buh")
 		let timeStr: String = self.time == nil ? "No Date" : self.time!.description
 		
-		return " ~  Entry: id=\(self.id), time=\(timeStr), sub=\(self.substance?.name ?? "nil, amount=\(self.amount)")    ~~~~toString"
+		let amount: String = self.amount == nil ? "ee.toString" : self.amount!
+		
+		return " ~  Entry: id=\(self.id), time=\(timeStr), sub=\(self.substance?.name ?? "nil"), amount=\(amount)                  ~~~~toString"
 	}
 	
 	// access fields so printing ee does not show <fault> and instead shows values
 	public static func realize(ee: EntryEntity){
 		let timeStr: String = ee.time == nil ? "No Date" : ee.time!.description
-		_ = "\(ee)\nid:\(ee.id)\ntime:\(timeStr)\namount:\(ee.amount)"
+		_ = "\(ee)\nid:\(ee.id)\ntime:\(timeStr)\namount:\(ee.amount ?? "nil")"
 	}
 	
 	public static func printArr(eeArr: [EntryEntity]){
@@ -86,7 +88,7 @@ public class EntryEntity: NSManagedObject, Codable {
 	
 	// convert [EntryEntity] to [Entry] to more easily manage structs
 	public static func eeArr2eArr(eeArr: [EntryEntity]) -> [Entry]{
-		//		print("EntryEntity/eeArr2eArr:")
+		print("EntryEntity/eeArr2eArr:")
 		let len = eeArr.count
 		// checking len solves the
 		// Fatal error cannot create Range
@@ -95,16 +97,20 @@ public class EntryEntity: NSManagedObject, Codable {
 			print("eeArr2eArr: input eeArr EMPTY")
 			return []
 		}
+//		self.realize(ee: eeArr[0])
+//		print("eeArr2eArr: input eeArr = \(eeArr)")
+		
 		var eArr: [Entry] = []
 		//		print("len=\(len)")
 		for i in 0...(len-1) {
 			//			print(eeArr[i])
 			let eOpt = Entry(entryEntity: eeArr[i]) //not actually calling the constructor?
-			guard let e = eOpt else {
-				print("""
-					TrackerVC/eeArr2eArr: !!! ERROR i = \(i)
-					&& `guard let e = eOpt == NIL -> true` !!!
-					""")
+			guard let e = eOpt else { // this is returning nil
+				print("EntryEntity/eeArr2eArr: eOpt = nil      ERROR!!!!!!!!!!!")
+//				print("""
+//					EntryEntity/eeArr2eArr: !!! ERROR i = \(i)
+//					&& `guard let e = eOpt == NIL -> true` !!!
+//					""")
 				break;
 			}
 			eArr.append(e)
@@ -115,10 +121,10 @@ public class EntryEntity: NSManagedObject, Codable {
 			return eArr
 		} else {
 			// failure
-			print("eeArr2eArr: FAILURE")
+			print("eeArr2eArr: eeArr EMPTY")
 			return []
 		}
-		//		print("------------------------------------END eeArr2eArr\n")
+		print("------------------------------------END eeArr2eArr\n")
 	}
 	
 	//	public static eeOptArr2eeArr(eeOptArr: [EntryEntity?]) -> [EntryEntity]{

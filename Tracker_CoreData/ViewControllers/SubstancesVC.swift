@@ -47,6 +47,7 @@ class SubstanceVC: UIViewController, UITableViewDataSource {
 			}
 			self.sm.insertNewSub(name: name)
 			self.tableView.reloadData()
+			self.showOrHideTable()
 		}))
 		self.present(alert, animated: true)
 //		print(alert.getStatus())

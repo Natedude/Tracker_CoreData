@@ -1,4 +1,4 @@
- //  ViewController.swift
+//  ViewController.swift
 //  Tracker_CoreData
 //  Created by Nathan Hildum on 11/24/21.
 //  Copyright © 2021 Nathan Hildum. All rights reserved.
@@ -19,7 +19,16 @@ import CoreDataManager
 
 class TrackerVC: UIViewController, UITableViewDataSource {
 	
-		// MARK: - Tracker
+//	let viewController: ViewController = self.storyboard?
+//		.instantiateViewControllerWithIdentifier("VC") as ViewController
+	
+//	self.navigationController?
+//		.pushViewController(
+//			viewController,
+//			animated: true
+//		)
+	
+	// MARK: - Tracker
 	private let cdm = CoreDataManager.sharedInstance
 	private let em = EntryManager.sharedInstance
 	private let sm = SubstanceManager.sharedInstance
@@ -28,9 +37,18 @@ class TrackerVC: UIViewController, UITableViewDataSource {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-
+//		self.em.deleteAllEntries()
+//		self.sm.deleteAllSubstances()
+//		self.sm.deleteAllSubstances()
 		self.showOrHideTable()
-//		_ = Test()
+		self.tableView.reloadData()
+		//		_ = Test()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+//		self.em.deleteAllEntries()
+//		self.sm.deleteAllSubstances()
+		self.tableView.reloadData()
 	}
 	
 	// taken partly from answer by (Frankie) https://stackoverflow.com/questions/15746745/handling-an-empty-uitableview-print-a-friendly-message
@@ -62,13 +80,17 @@ class TrackerVC: UIViewController, UITableViewDataSource {
 		//		print(timeStr)
 		//		print(cell)
 		
-		guard let timeLabel = cell.timeLabel, let substanceLabel = cell.substanceLabel else {
-			print("tableView: ERROR label is nil")
-			return cell
+		guard
+			let timeLabel = cell.timeLabel,
+			let substanceLabel = cell.substanceLabel,
+			let amountLabel = cell.amountLabel else {
+				print("tableView: ERROR label is nil")
+				return cell
 		}
 		timeLabel.text = timeStr
-		print("tableView: entry.substance.name=\(entry.substance.name)")
+		print("tableView: entry.substance.nam e = \(entry.substance.name)")
 		substanceLabel.text = entry.substance.name
+		amountLabel.text = entry.amount + " mg"
 		
 		return cell
 	}
@@ -79,7 +101,7 @@ class TrackerVC: UIViewController, UITableViewDataSource {
 		self.em.insertNewEntry(sm: self.sm)
 		self.tableView.reloadData()
 	}
-
+	
 }
 
 // (Frankie)

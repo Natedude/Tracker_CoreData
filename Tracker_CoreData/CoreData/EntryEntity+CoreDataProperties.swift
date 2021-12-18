@@ -2,7 +2,7 @@
 //  EntryEntity+CoreDataProperties.swift
 //  Tracker_CoreData
 //
-//  Created by Nathan Hildum on 12/15/21.
+//  Created by Nathan Hildum on 12/16/21.
 //  Copyright © 2021 Nathan Hildum. All rights reserved.
 //
 //
@@ -19,7 +19,7 @@ extension EntryEntity {
 
     @NSManaged public var id: Int64
     @NSManaged public var time: Date?
-    @NSManaged public var amount: Double
+    @NSManaged public var amount: String?
     @NSManaged public var substance: SubstanceEntity?
 
 }
