@@ -39,7 +39,7 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
 	
 	// Inspired by demo of use of shouldChangeCharacterIn UITextFieldDelegate func
-	// in Patrick Lin's answer on https://stackoverflow.com/questions/27215495/limit-uitextfield-input-to-numbers-in-swift
+	// in Patrick Lin's answer ona https://stackoverflow.com/questions/27215495/limit-uitextfield-input-to-numbers-in-swift
 	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 //		print("AmountTableViewCell/shouldChangeCharactersIn:")
 		guard var input = textField.text else {
@@ -56,7 +56,7 @@ class AmountTableViewCell: UITableViewCell, UITextFieldDelegate {
 		// if enter alpha char does move period
 		// if there is a dot move it
 		// but we dont want to move dot if non numeric entered
-		let str = string.filter("0123456789.".contains)
+		let str = string.filter("0123456789".contains)
 		print("str.isEmpty = \(str.isEmpty)")
 		if !str.isEmpty {
 			let rangeOfDot = input.range(of: ".")
